@@ -3,15 +3,9 @@ public class Pessoa{
 	String endereco;
 	String telefone;
 
-	void SetName(String nome){
+	void SetInfo(String nome, String end, String tel){
 		this.nome = nome;
-	}
-
-	void SetEndereco (String end){
 		this.endereco = end;
-	}
-
-	void SetTelefone(String tel){
 		this.telefone = tel;
 	}
 	

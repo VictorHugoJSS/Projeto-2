@@ -1,18 +1,31 @@
 import java.util.ArrayList;
 
 public class Cliente extends Pessoa{
-    String IdCliente;
-    String livro;
+    private String IdCliente;
+    ArrayList<String> livros = new ArrayList<String>();
 
     void setId (String id){
         this.IdCliente = id;
     }
 
-    void setLivro (String liv){
-        this.livro = liv;
+    String getId(){
+        return IdCliente;
+    }
+    
+    void EmprestarLivro (String NomeLivro){
+        this.livros.add(NomeLivro);
     }
 
-    void EmprestarLivro (String NomeLivro){
-        
+    void print_Livros(){
+        int i = 1;
+        System.out.println("\t Livros \t");
+        System.out.println("-------------------------------");
+        for(String j: livros){
+            System.out.println(i + ". " + j);
+        }
+        System.out.printf("-------------------------------%n");
+    }
+    void DevolverLivro(int number){
+        livros.remove(number-1);
     }
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Cliente extends Pessoa{
     private String IdCliente;
-    ArrayList<String> livros = new ArrayList<String>();
+    ArrayList<Livro> livrosEmprestados = new ArrayList<>();
 
     void setId (String id){
         this.IdCliente = id;
@@ -12,8 +12,8 @@ public class Cliente extends Pessoa{
         return IdCliente;
     }
     
-    void EmprestarLivro (ArrayList <String> livros){
-        this.livros = livros;
+    void EmprestarLivro(Livro livro){
+        livrosEmprestados.add(livro);
     }
 
     void get_info(){
@@ -24,12 +24,12 @@ public class Cliente extends Pessoa{
         int i = 1;
         System.out.println("\t Livros \t");
         System.out.println("-------------------------------");
-        for(String j: livros){
-            System.out.println(i + ". " + j);
+        for(Livro j: livrosEmprestados){
+            System.out.printf("%d. %5s | %5s | %5s|%n", i++, j.getId(), j.getTitulo(), j.getAutor());
         }
         System.out.printf("-------------------------------%n");
     }
     void DevolverLivro(int number){
-        livros.remove(number-1);
+        livrosEmprestados.remove(number-1);
     }
 }

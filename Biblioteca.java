@@ -28,15 +28,28 @@ public class Biblioteca{
     void funcionario_test(){
 
     }
-    /*void add_livro(Scanner scanner){
+    void add_livro(Scanner scanner){
         Livro test = new Livro();
-        
-        while(){
+        String titulo, autor, id;
+        int add;
+
+        while(true){
             System.out.print("Digite o Titulo do livro: ");
-            test.setTitulo(scanner.nextLine());
+            titulo = scanner.nextLine();
             System.out.print("Digite o Autor do livro: ");
-            test.setAutor(scanner.nextLine());
-            test.setId();
+            autor = scanner.nextLine();
+            System.out.print("Digite o Id do livro: ");
+            id = scanner.nextLine();
+            test.setInfo(titulo, autor, id);
+            System.out.print("Deseja adicionar um novo livro? (Digite 1 para adicionar ou 0 para sair)");
+            add = scanner.nextInt();
+            while (add != 1 || add != 0){
+                System.out.print("Deseja adicionar um novo livro? (Digite 1 para adicionar ou 0 para sair)");
+                add = scanner.nextInt();
+            }
+            if (add == 0){
+                break;
+            }
         }
-    }*/
+    }
 }

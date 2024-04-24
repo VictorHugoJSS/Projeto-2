@@ -12,8 +12,8 @@ public class Cliente extends Pessoa{
         return IdCliente;
     }
     
-    void EmprestarLivro (String NomeLivro){
-        this.livros.add(NomeLivro);
+    void EmprestarLivro (ArrayList <String> livros){
+        this.livros = livros;
     }
 
     void get_info(){

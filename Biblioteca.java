@@ -3,6 +3,7 @@ import java.util.*;
 public class Biblioteca{
     private Scanner scanner = new Scanner(System.in);
     ArrayList <Cliente> clientes = new ArrayList<>();
+    ArrayList <Funcionario> proletariado = new ArrayList<>();
     ArrayList <Livro> livros = new ArrayList<>();
 
     void adicionar_cliente(String nome, String endereco, String tel, String id){
@@ -24,16 +25,18 @@ public class Biblioteca{
         clientes.remove(num-1);
     }
 
-    void add_livro(Scanner scanner){
-        Livro test = new Livro();
+    void funcionario_test(){
 
+    }
+    /*void add_livro(Scanner scanner){
+        Livro test = new Livro();
+        
         while(){
-            UUID testID = ;
             System.out.print("Digite o Titulo do livro: ");
             test.setTitulo(scanner.nextLine());
             System.out.print("Digite o Autor do livro: ");
             test.setAutor(scanner.nextLine());
             test.setId();
         }
-    }
+    }*/
 }

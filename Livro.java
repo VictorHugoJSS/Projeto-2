@@ -8,9 +8,12 @@ public class Livro{
         this.titulo = nomeLivro;
         this.autor = nomeAutor;
         this.idLivro = idLivro;
-        this.status = "Sim";
+        this.status = "SIM";
     }
 
+    void setStatus (){
+        this.status = "NÃO";
+    }
     String getTitulo(){
         return titulo;
     }

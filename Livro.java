@@ -4,20 +4,11 @@ public class Livro{
     String idLivro;
     String status;
 
-    void setTitulo (String nomeLivro){
+    void setInfo(String nomeLivro, String nomeAutor, String idLivro){
         this.titulo = nomeLivro;
-    }
-
-    void setAutor (String nomeAutor){
         this.autor = nomeAutor;
-    }
-
-    void setId (String idLivro){
         this.idLivro = idLivro;
-    }
-
-    void setStatus (String status){
-        this.status = status;
+        this.status = "Sim";
     }
 
     String getTitulo(){

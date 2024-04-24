@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Biblioteca{
     private Scanner scanner = new Scanner(System.in);
@@ -13,10 +12,28 @@ public class Biblioteca{
         clientes.add(associado);
     }
 
-    void remover_cliente(int ind){
+    void remover_cliente(Scanner scanner){
+        int j = 1;
         System.out.printf("Id | Nome | Tel.");
         for (Cliente i : clientes){
-            System.out.printf("1. %s | %s | %s%n", i.getId(), i.GetNome(), i.GetTelefone());
+            System.out.printf("%d. %s | %s | %s%n", j++,i.getId(), i.GetNome(), i.GetTelefone());
+        }
+
+        System.out.print("Digite o numero do cliente que quer remover: ");
+        int num = scanner.nextInt();
+        clientes.remove(num-1);
+    }
+
+    void add_livro(Scanner scanner){
+        Livro test = new Livro();
+
+        while(){
+            UUID testID = ;
+            System.out.print("Digite o Titulo do livro: ");
+            test.setTitulo(scanner.nextLine());
+            System.out.print("Digite o Autor do livro: ");
+            test.setAutor(scanner.nextLine());
+            test.setId();
         }
     }
 }

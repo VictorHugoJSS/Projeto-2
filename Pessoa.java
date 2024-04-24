@@ -20,4 +20,9 @@ public class Pessoa{
 	String GetTelefone(){
 		return telefone;
 	}
+	void get_info(){
+		System.out.println("Nome: " + nome);
+		System.out.println("Endereço: " + endereco);
+		System.out.println("Telefone: " + telefone);
+	}
 }

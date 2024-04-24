@@ -16,6 +16,10 @@ public class Cliente extends Pessoa{
         this.livros.add(NomeLivro);
     }
 
+    void get_info(){
+        get_info();
+        System.out.println("Id: " + IdCliente);
+    }
     void print_Livros(){
         int i = 1;
         System.out.println("\t Livros \t");

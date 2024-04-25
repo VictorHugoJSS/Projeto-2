@@ -90,7 +90,7 @@ Visual.displayLoginID();
 do	
 {	
 	input = scanner.nextLine();
-	if (input == "0") { return; }
+	if (input.equals("0")) { return; }
 	for (int i = 0; i < num; i++)
     {
 		copia = clientes.get(i); 
@@ -105,7 +105,7 @@ Visual.displayLoginSenha(input);
 do
 {
 	input = scanner.nextLine();
-	if (input == "0") { return; }
+	if (input.equals("0")) { return; }
 	num = copia.verificarSenha(input);
 	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); return; }
 	else { System.out.print(">>> Senha incorreta, tente novamente!\n              "); }

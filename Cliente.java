@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Cliente extends Pessoa{
     private String IdCliente;
+    private String Senha;
     ArrayList<Livro> livrosEmprestados = new ArrayList<>();
 
     void setId (String id){
@@ -10,6 +11,20 @@ public class Cliente extends Pessoa{
 
     String getId(){
         return IdCliente;
+    }
+
+    void setSenha(String Senha){
+        this.Senha = Senha;
+    }
+
+    String getSenha(){
+        return this.Senha;
+    }
+
+    int verificarSenha(String Senha)
+    {
+        if ( this.Senha.equals(Senha) ) { return 1; }
+        else { return 0; }
     }
     
     void EmprestarLivro(Livro livro){

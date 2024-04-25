@@ -18,7 +18,7 @@ public class Cliente extends Pessoa{
     }
 
     String getSenha(){
-        return this.Senha;
+        return Senha;
     }
 
     int verificarSenha(String Senha)

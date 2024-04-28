@@ -15,6 +15,7 @@ public class Pessoa{
     String getId(){
         return ID;
     }
+
 	
     void setSenha(String Senha){
         this.Senha = Senha;
@@ -45,13 +46,25 @@ public class Pessoa{
 		this.endereco = end;
 		this.telefone = tel;
 	}
-	
+
+	void setNome(String nome){
+		this.nome = nome;
+	}
+
 	String GetNome(){
 		return nome;
 	}
 
+	void setEndereco(String endereco){
+		this.endereco = endereco;
+	}
+
 	String GetEndereco(){
 		return endereco;
+	}
+
+	void setTelefone(String telefone){
+		this.telefone = telefone;
 	}
 
 	String GetTelefone(){
@@ -70,4 +83,3 @@ public class Pessoa{
 	}
 
 } 
-    

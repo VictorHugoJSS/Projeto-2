@@ -84,6 +84,12 @@ public class Visual {
         System.out.print("\n\n\n                                 ~CADASTRO~                               \n");
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("             ________________________________________________\n");
+
+        if (num == -1){
+            System.out.print(ANSI_GREEN + "\n        >>>Esse ID nao esta disponivel, tente outro.\n" + ANSI_RESET);
+            System.out.print("       ____________________________________________________________       \n\n              "); return;
+                        }
+
         if (num == 0){
         System.out.print(ANSI_GREEN + "\n        >>>Digite seu novo ID de login, ou [0] para voltar :\n" + ANSI_RESET); 
         System.out.print("       ____________________________________________________________       \n\n              "); return;
@@ -123,6 +129,11 @@ public class Visual {
 
 
         System.out.print("       ____________________________________________________________       \n\n");
+    }
+
+    public static void IdNaoDisponivel()
+    {
+        System.out.print(ANSI_GREEN + "\n        >>>Esse ID nao esta disponivel, tente outro.\n" + ANSI_RESET);
     }
 
 }

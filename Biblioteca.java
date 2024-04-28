@@ -78,6 +78,36 @@ void add_livro(Scanner scanner){
             }
         }
     }
+static void cadastro(ArrayList<Pessoa> pessoas, Scanner scan)
+{
+	scan.nextLine();
+	String input;
+	Cliente novo = new Cliente();
+	int atual;
+	
+	for (atual = 0; atual <= 5; atual++)
+	{
+		Visual.displayCadastro(atual, novo); 
+		if (atual == -1) { atual++; }
+		input = scan.nextLine(); if (input.equals("0")) { return; }
+		switch (atual)
+		{
+
+
+			case 0: if (Pessoa.Busca(pessoas, input) != -1) { atual = -2; break; }
+					novo.setId(input);
+					break;
+
+			case 1: novo.setNome(input); break;
+			case 2: novo.setEndereco(input); break;
+			case 3: novo.setTelefone(input); break;
+			case 4: novo.setSenha(input); break;
+			case 5: break;
+		}
+	}
+
+	pessoas.add(novo);
+}
 
 	void mostrar_livros(){
 		int j = 0;
@@ -151,7 +181,7 @@ public static void main (String[] args)
 					  break;
 	
 					  case 2 :
-					  System.out.print(">>> nova conta!\n");
+					  cadastro(pessoas, scanner);
 					  break;
 	
 					  case 3 :
@@ -173,4 +203,3 @@ public static void main (String[] args)
 	} while (main != 0);
 	}
 }
-

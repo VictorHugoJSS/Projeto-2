@@ -1,7 +1,5 @@
 public class Visual {
 
-
-
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -73,12 +71,58 @@ public class Visual {
         System.out.print("       	     [2] Ver seu inventario\n");
         System.out.print("       	     [3] Notificaçoes de livros seguidos\n");
         System.out.print("             ________________________________________________\n\n");
-        System.out.print("       	     [4] Gerenciar conta\n");
+        System.out.print("       	     [4] Remover conta\n");
         System.out.print("       	     [5] Enviar feedback\n");
       //System.out.print("       	     [6] Mudar cor do texto\n");
         System.out.print("       	     [0] Sair\n");
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print(ANSI_RESET + "              ");
+    }
+
+    public static void displayCadastro(int num, Cliente cliente)
+    {
+        System.out.print("\n\n\n                                 ~CADASTRO~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("             ________________________________________________\n");
+        if (num == 0){
+        System.out.print(ANSI_GREEN + "\n        >>>Digite seu novo ID de login, ou [0] para voltar :\n" + ANSI_RESET); 
+        System.out.print("       ____________________________________________________________       \n\n              "); return;
+                     }
+        System.out.print("\n                 ID: " + cliente.getId() + "\n");
+        System.out.print("             ________________________________________________\n");
+
+        if (num == 1){
+            System.out.print(ANSI_GREEN + "\n        >>>Digite seu nome, ou [0] para voltar :\n" + ANSI_RESET); 
+            System.out.print("       ____________________________________________________________       \n\n              "); return;
+                         }
+            System.out.print("\n                 Nome: " + cliente.GetNome() + "\n");
+            System.out.print("             ________________________________________________\n");
+
+        if (num == 2){
+            System.out.print(ANSI_GREEN + "\n        >>>Digite seu endereço, ou [0] para voltar :\n" + ANSI_RESET); 
+            System.out.print("       ____________________________________________________________       \n\n              "); return;
+                     }
+        System.out.print("\n                 Endereço: " + cliente.GetEndereco() + "\n");
+        System.out.print("             ________________________________________________\n");
+
+        if (num == 3){
+            System.out.print(ANSI_GREEN + "\n        >>>Digite seu telefone, ou [0] para voltar :\n" + ANSI_RESET); 
+            System.out.print("       ____________________________________________________________       \n\n              "); return;
+                     }
+        System.out.print("\n                 Telefone: " + cliente.GetTelefone() + "\n");
+        System.out.print("             ________________________________________________\n");
+
+        if (num == 4){
+            System.out.print(ANSI_GREEN + "\n        >>>Por ultimo, digite sua senha, ou [0] para voltar :\n" + ANSI_RESET); 
+            System.out.print("       ____________________________________________________________       \n\n              "); return;
+                     }
+        System.out.print("\n                 Senha : " + cliente.getSenha() + "\n");
+        System.out.print("             ________________________________________________\n");
+
+        System.out.print(ANSI_GREEN + "\n        >>>Tudo certo! Aperte \"Enter\" para continuar.\n" + ANSI_RESET);
+
+
+        System.out.print("       ____________________________________________________________       \n\n");
     }
 
 }

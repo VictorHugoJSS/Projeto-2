@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Pessoa{
 	private String nome;
 	private String endereco;
@@ -27,6 +29,16 @@ public class Pessoa{
         else { return 0; }
     }
 
+	static int Busca(ArrayList<Pessoa> pessoas, String input)
+	{
+		int num = pessoas.size();
+		for (int i = 0; i < num; i++)
+    	{
+			if ((pessoas.get(i)).getId().equals(input)) { return i; } 
+		}
+		return -1;
+	}
+
 	void SetInfo(String nome, String end, String tel){
 		this.nome = nome;
 		this.endereco = end;
@@ -43,6 +55,11 @@ public class Pessoa{
 
 	String GetTelefone(){
 		return telefone;
+	}
+
+	void Menu()
+	{
+
 	}
 
 	void get_info(){

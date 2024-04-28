@@ -10,11 +10,11 @@ import java.util.ArrayList;
 @SuppressWarnings({"unused"})  
 
 public class Biblioteca{
-    ArrayList <Cliente> clientes = new ArrayList<>();
-    ArrayList <Funcionario> proletariado = new ArrayList<>();
-    ArrayList <Livro> livros = new ArrayList<>();
+    ArrayList <Cliente> clientes = new ArrayList<>(); // 
+    ArrayList <Funcionario> proletariado = new ArrayList<>(); // Depois tira isso : e melhor usar um array do tipo Pessoa ao inves de 927458 arrays separados
+    ArrayList <Livro> livros = new ArrayList<>(); //
 
-static void adicionar_cliente(String nome, String endereco, String tel, String id, String senha, ArrayList<Cliente> clientes)
+static void adicionar_cliente(String nome, String endereco, String tel, String id, String senha, ArrayList<Pessoa> clientes)
 {
 	Cliente associado = new Cliente();
 	associado.SetInfo(nome, endereco, tel);
@@ -79,12 +79,12 @@ void add_livro(Scanner scanner){
     }
 
 
-static void login(ArrayList<Cliente> clientes, Scanner scanner)
+static void login(ArrayList<Pessoa> clientes, Scanner scanner)
 {		
 int num = clientes.size();
 int check = 0;
 String input;
-Cliente copia = null;
+Pessoa copia = null;
 
 Visual.displayLoginID();
 do	
@@ -94,7 +94,7 @@ do
 	for (int i = 0; i < num; i++)
     {
 		copia = clientes.get(i); 
-		if (copia.getId().equals(input)) { check = 1; break; }
+		if ((copia).getId().equals(input)) { check = 1; break; } 
 	}
 	if (check == 0) {System.out.print(">>> Conta não encontrada, tente novamente!\n              ");}
 
@@ -106,7 +106,7 @@ do
 {
 	input = scanner.nextLine();
 	if (input.equals("0")) { return; }
-	num = copia.verificarSenha(input);
+		{ num = copia.verificarSenha(input); }
 	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); return; }
 	else { System.out.print(">>> Senha incorreta, tente novamente!\n              "); }
 
@@ -116,19 +116,16 @@ do
 
 public static void main (String[] args)
 	{
-		ArrayList <Cliente> clientes = new ArrayList<Cliente>();
-		Cliente cliente;
+		ArrayList <Pessoa> pessoas = new ArrayList<Pessoa>();
+		Pessoa pessoa;
 	
 		int main = 1;
 		int menu = 10;
 		String id;
 		String senha;
 		Scanner scanner = new Scanner(System.in);
-		adicionar_cliente("teste", "rua", "12345", "12345", "senha", clientes); //
-		cliente = clientes.get(0); //
-		id = cliente.getId(); // 
-		senha = cliente.getSenha(); // 
-		System.out.print(senha + "\n" + id); //
+		adicionar_cliente("teste", "rua", "12345", "12345", "senha", pessoas); //
+		pessoa = pessoas.get(0); //
 	do 
 	{
 		Visual.displayInicio();
@@ -140,7 +137,7 @@ public static void main (String[] args)
 				  {
 					  case 1 :
 					  scanner.nextLine();
-					  login(clientes, scanner);
+					  login(pessoas, scanner);
 					  break;
 	
 					  case 2 :

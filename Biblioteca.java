@@ -20,6 +20,7 @@ static void adicionar_cliente(String nome, String endereco, String tel, String i
 	associado.SetInfo(nome, endereco, tel);
 	associado.setId(id);
 	associado.setSenha(senha);
+	associado.setCor(0);
 	clientes.add(associado);
 }
 
@@ -104,7 +105,7 @@ do
 	input = scanner.nextLine();
 	if (input.equals("0")) { return; }
 		{ num = copia.verificarSenha(input); }
-	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); copia.Menu(); return; }
+	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); copia.Menu(scanner); return; }
 	else { System.out.print(">>> Senha incorreta, tente novamente!\n              "); }
 
 } while (check == 0);
@@ -149,22 +150,15 @@ public static void main (String[] args)
 					  System.out.print(">>> termos de uso!\n");
 					  break;
 	
-					  case 5 :
-					  System.out.print(">>> mudar cor!\n");
-					  break;
-	
 					  case 0 :
-					  System.out.print(">>> sair!\n");
-					  break;
-		  
+					  System.out.print(">>> :(\n"); scanner.close(); return;
+					  
 					  default :
 					  System.out.print(">>> invalido!\n");
 				  }
 		  
 	
 	} while (main != 0);
-	scanner.close();
-	
 	}
-
 }
+

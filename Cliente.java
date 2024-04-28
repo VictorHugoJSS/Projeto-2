@@ -10,6 +10,13 @@ public class Cliente extends Pessoa{
         livrosEmprestados.add(livro);
     }
 
+    public Cliente()
+    {
+        this.SetInfo("0", "0", "0");
+        this.setId("0");
+        this.setSenha("0");
+    }
+
     void print_Livros(){
         int i = 1;
         System.out.println("\t Livros \t");

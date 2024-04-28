@@ -79,7 +79,19 @@ void add_livro(Scanner scanner){
         }
     }
 
-
+	void mostrar_livros(){
+		int j = 0;
+		for (Livro i : livros){
+			System.out.println("Id: " + i.getId());
+			System.out.println("Nome: " + i.getTitulo());
+			System.out.println("Autor: " + i.getAutor());
+			System.out.println("Disponivel: " + i.getStatus());
+			System.out.println("-----------------------------------------------");
+		}
+	}
+	void Emprestar_livro (Scanner scanner){
+		
+	}
 static void login(ArrayList<Pessoa> pessoas, Scanner scanner)
 {		
 int num = pessoas.size();

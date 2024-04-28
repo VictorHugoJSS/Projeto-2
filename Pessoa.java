@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pessoa{
 	private String nome;
@@ -57,15 +58,16 @@ public class Pessoa{
 		return telefone;
 	}
 
-	void Menu()
-	{
-
-	}
-
 	void get_info(){
 		System.out.println("Nome: " + nome);
 		System.out.println("Endereço: " + endereco);
 		System.out.println("Telefone: " + telefone);
 	}
+
+	void Menu(Scanner scan)
+	{
+		
+	}
+
 } 
     

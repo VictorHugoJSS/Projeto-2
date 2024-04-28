@@ -79,10 +79,10 @@ void add_livro(Scanner scanner){
     }
 
 
-static void login(ArrayList<Pessoa> clientes, Scanner scanner)
+static void login(ArrayList<Pessoa> pessoas, Scanner scanner)
 {		
-int num = clientes.size();
-int check = 0;
+int num = pessoas.size();
+int check = -1;
 String input;
 Pessoa copia = null;
 
@@ -91,14 +91,11 @@ do
 {	
 	input = scanner.nextLine();
 	if (input.equals("0")) { return; }
-	for (int i = 0; i < num; i++)
-    {
-		copia = clientes.get(i); 
-		if ((copia).getId().equals(input)) { check = 1; break; } 
-	}
-	if (check == 0) {System.out.print(">>> Conta não encontrada, tente novamente!\n              ");}
+	check = Pessoa.Busca(pessoas, input);
+	if (check == -1) {System.out.print(">>> Conta não encontrada, tente novamente!\n              "); }
+	else {copia = pessoas.get(check);}
 
-} while (check == 0);
+} while (check == -1);
 
 check = 0;
 Visual.displayLoginSenha(input);
@@ -107,7 +104,7 @@ do
 	input = scanner.nextLine();
 	if (input.equals("0")) { return; }
 		{ num = copia.verificarSenha(input); }
-	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); return; }
+	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); copia.Menu(); return; }
 	else { System.out.print(">>> Senha incorreta, tente novamente!\n              "); }
 
 } while (check == 0);

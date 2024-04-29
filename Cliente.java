@@ -6,25 +6,12 @@ public class Cliente extends Pessoa{
     private ArrayList<Livro> livrosEmprestados = new ArrayList<>();
     private int cor;
     
-    void EmprestarLivro(Livro livro){
-        livrosEmprestados.add(livro);
-    }
 
     public Cliente()
     {
         this.SetInfo("0", "0", "0");
         this.setId("0");
         this.setSenha("0");
-    }
-
-    void print_Livros(){
-        int i = 1;
-        System.out.println("\t Livros \t");
-        System.out.println("-------------------------------");
-        for(Livro j: livrosEmprestados){
-            System.out.printf("%d. %5s | %5s | %5s|%n", i++, j.getId(), j.getTitulo(), j.getAutor());
-        }
-        System.out.printf("-------------------------------%n");
     }
 
     void DevolverLivro(int number){
@@ -37,6 +24,43 @@ public class Cliente extends Pessoa{
 
     void setCor(int cor){
         this.cor = cor;   
+    }
+
+    static int Busca(ArrayList<Pessoa> pessoas, String input)
+	{
+		int num = pessoas.size();
+		for (int i = 0; i < num; i++)
+    	{
+			if ((pessoas.get(i)).getId().equals(input)) { return i; } 
+		}
+		return -1;
+	}
+
+    void Inventario()
+    {
+        int tam = livrosEmprestados.size();
+        Visual.displayInventarioInicio(this);
+        for (int i = 0; i < tam; i++)
+    	{
+			Visual.printEmprestado(this, livrosEmprestados.get(i), i+1);
+		}
+    }
+
+    int pegarEmprestado(Livro livro)
+    {
+        int tam = livrosEmprestados.size();
+        Livro copia;
+        for (int i = 0; i < tam; i++)
+    	{
+			copia = livrosEmprestados.get(i);
+            if (livro.idLivro == copia.idLivro) { return 0; }
+		}
+
+        if (livro.qtd <= 0) { return -1; }
+
+        livrosEmprestados.add(livro);
+        livro.qtd--;
+        return 1;
     }
 
     void navegarLivros(Scanner scan, ArrayList<Livro> livros)
@@ -65,6 +89,7 @@ public class Cliente extends Pessoa{
     void infoLivro(Scanner scan, Livro livro)
     {
         int menu = 10;
+        int retorno;
         do 
         {
             Visual.infoLivro(this, livro);
@@ -74,7 +99,10 @@ public class Cliente extends Pessoa{
                     switch (menu)
                       {
                          case 1 :
-                         System.out.print(">>> pegar emprestado!\n");
+                         retorno = pegarEmprestado(livro);
+                         if (retorno == 1) { Visual.EmprestadoComSucesso();}
+                         else if (retorno == -1) { Visual.SemLivro(); }
+                         else if (retorno == 0) { Visual.JaTemoLivro(); }
                          break;
         
                           case 2 :
@@ -104,12 +132,11 @@ public class Cliente extends Pessoa{
 				switch (menu)
 				  {
                      case 1 :
-                     System.out.print(">>> procurar livros!\n");
                      navegarLivros(scan, livros);
                      break;
 	
 					  case 2 :
-					  System.out.print(">>> inventario!\n");
+					  Inventario();
 					  break;
 	
 					  case 3 :

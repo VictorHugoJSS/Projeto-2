@@ -37,6 +37,13 @@ void remover_cliente(Scanner scanner)
         clientes.remove(num-1);
     }
 
+static void temporarioNovoLivro(String titulo, String autor, String id, int qtd, ArrayList<Livro> livros)
+{
+	Livro livro = new Livro();
+	livro.setInfo(titulo, autor, id, qtd);
+	livros.add(livro);
+}
+
 void add_livro(Scanner scanner){
         Livro test = new Livro();
         String titulo, autor, id;
@@ -46,7 +53,7 @@ void add_livro(Scanner scanner){
         autor = scanner.nextLine();
         System.out.println("Digite o Id do livro: ");
         id = scanner.nextLine();
-        test.setInfo(titulo, autor, id);
+        //test.setInfo(titulo, autor, id);
         livros.add(test);
     }
 
@@ -57,7 +64,7 @@ void add_livro(Scanner scanner){
             System.out.println("-----------------------------------------------");
             System.out.println("Id | Titulo | Autor | Status");
             for(Livro i : livros){
-                System.out.println(j++ + " |" + i.getId() + " |" + i.getTitulo() + " |" + i.getAutor() + " |"+ i.getStatus());
+                System.out.println(j++ + " |" + i.getId() + " |" + i.getTitulo() + " |" + i.getAutor() + " |"+ i.getQtd());
             }
             System.out.println("-----------------------------------------------");
             System.out.print("Digite o numero do livro que você quer remover: ");
@@ -78,39 +85,6 @@ void add_livro(Scanner scanner){
             }
         }
     }
-
-	void mostrar_livros(){
-		int j = 1;
-		for (Livro i : livros){
-			System.out.println(j++);
-			System.out.println("Id: " + i.getId());
-			System.out.println("Nome: " + i.getTitulo());
-			System.out.println("Autor: " + i.getAutor());
-			System.out.println("Disponivel: " + i.getStatus());
-			System.out.println("-----------------------------------------------");
-		}
-	}
-
-	void Emprestar_livro (Cliente cliente,Scanner scanner){
-		mostrar_livros();
-		System.out.println("Digite o numero do livro que você quer emprestado ");
-		int numLivro = scanner.nextInt();
-		cliente.EmprestarLivro(livros.get(numLivro-1));
-		this.livros.get(numLivro-1).setStatus();
-	}
-
-	void Devolver_Livro(Cliente cliente, Scanner scanner){
-		cliente.print_Livros();
-		System.out.println("Digite o numero do livro que você quer devolver ");
-		int numLivro = scanner.nextInt();
-		for (Livro i: livros){
-			if (cliente.get_nomeLivro(numLivro) == i.getTitulo()){
-				i.status = "SIM";
-				break;
-			}
-		}
-		cliente.DevolverLivro(numLivro);
-	}
 static void cadastro(ArrayList<Pessoa> pessoas, Scanner scan)
 {
 	scan.nextLine();
@@ -142,7 +116,8 @@ static void cadastro(ArrayList<Pessoa> pessoas, Scanner scan)
 	pessoas.add(novo);
 }
 
-static void login(ArrayList<Pessoa> pessoas, Scanner scanner)
+
+static void login(ArrayList<Pessoa> pessoas, Scanner scanner, ArrayList<Livro> livros)
 {		
 int num = pessoas.size();
 int check = -1;
@@ -167,7 +142,7 @@ do
 	input = scanner.nextLine();
 	if (input.equals("0")) { return; }
 		{ num = copia.verificarSenha(input); }
-	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); copia.Menu(scanner); return; }
+	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); copia.Menu(scanner, livros); return; }
 	else { System.out.print(">>> Senha incorreta, tente novamente!\n              "); }
 
 } while (check == 0);
@@ -177,6 +152,7 @@ do
 public static void main (String[] args)
 	{
 		ArrayList <Pessoa> pessoas = new ArrayList<Pessoa>();
+		ArrayList <Livro> livros = new ArrayList<>();
 		Pessoa pessoa;
 	
 		int main = 1;
@@ -185,6 +161,9 @@ public static void main (String[] args)
 		String senha;
 		Scanner scanner = new Scanner(System.in);
 		adicionar_cliente("teste", "rua", "12345", "12345", "senha", pessoas); //
+		temporarioNovoLivro("titulo1", "autor1", "11111", 5, livros);
+		temporarioNovoLivro("titulo2", "autor2", "22222", 0, livros);
+		temporarioNovoLivro("titulo3", "autor3", "33333", 3, livros);
 		pessoa = pessoas.get(0); //
 	do 
 	{
@@ -197,7 +176,7 @@ public static void main (String[] args)
 				  {
 					  case 1 :
 					  scanner.nextLine();
-					  login(pessoas, scanner);
+					  login(pessoas, scanner, livros);
 					  break;
 	
 					  case 2 :

@@ -129,7 +129,7 @@ public class Visual {
 
         System.out.print("\n\n\n                                 ~INVENTARIO~                               \n");
         System.out.print("       ____________________________________________________________       \n\n");
-        System.out.print("\n                 Livros que voce tem:\n");
+        System.out.print("                 Livros que voce tem:\n");
         System.out.print(ANSI_RESET);
     }
 
@@ -326,4 +326,5 @@ public class Visual {
         System.out.print(ANSI_RESET + "              ");
     }
 
+    
 }

@@ -3,8 +3,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Cliente extends Pessoa{
-    ArrayList<Livro> livrosEmprestados = new ArrayList<>();
-    int cor;
+    private ArrayList<Livro> livrosEmprestados = new ArrayList<>();
+    private int cor;
     
     void EmprestarLivro(Livro livro){
         livrosEmprestados.add(livro);
@@ -27,9 +27,6 @@ public class Cliente extends Pessoa{
         System.out.printf("-------------------------------%n");
     }
 
-    String get_nomeLivro(int idx){
-        return livrosEmprestados.get(idx).getTitulo();
-    }
     void DevolverLivro(int number){
         livrosEmprestados.remove(number-1);
     }
@@ -42,7 +39,60 @@ public class Cliente extends Pessoa{
         this.cor = cor;   
     }
 
-    void Menu(Scanner scan)
+    void navegarLivros(Scanner scan, ArrayList<Livro> livros)
+    {
+        
+        int menu = 10;
+        do 
+	{
+		verLivros(livros);
+        Livro livro;
+        Visual.EscolhaLivro();
+		try {menu = scan.nextInt(); } 
+		catch (InputMismatchException e)
+		{ scan.next(); menu = 10; }
+				
+        if (menu <= 0) {return;}
+        else 
+        {
+            livro = livros.get(menu-1);
+            infoLivro(scan, livro);
+        }
+		
+	} while (menu != 0);
+    }
+
+    void infoLivro(Scanner scan, Livro livro)
+    {
+        int menu = 10;
+        do 
+        {
+            Visual.infoLivro(this, livro);
+            try {menu = scan.nextInt(); } 
+            catch (InputMismatchException e)
+            { scan.next(); menu = 10; }
+                    switch (menu)
+                      {
+                         case 1 :
+                         System.out.print(">>> pegar emprestado!\n");
+                         break;
+        
+                          case 2 :
+                          System.out.print(">>> seguir!\n");
+                          break;
+        
+                          case 0 :
+                          break;
+              
+                          default :
+                          System.out.print(">>> Entrada invalida!\n");
+                      }
+              
+        } while (menu != 0);
+    }
+    
+
+    void Menu(Scanner scan, ArrayList<Livro> livros)
     {
         int menu = 10;
         do 
@@ -55,6 +105,7 @@ public class Cliente extends Pessoa{
 				  {
                      case 1 :
                      System.out.print(">>> procurar livros!\n");
+                     navegarLivros(scan, livros);
                      break;
 	
 					  case 2 :
@@ -78,7 +129,6 @@ public class Cliente extends Pessoa{
 					  break;
 	
 					  case 0 :
-					  System.out.print(">>> sair!\n");
 					  break;
 		  
 					  default :
@@ -89,4 +139,3 @@ public class Cliente extends Pessoa{
 	} while (menu != 0);
     }
 }
-    

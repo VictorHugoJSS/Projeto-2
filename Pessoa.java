@@ -77,7 +77,18 @@ public class Pessoa{
 		System.out.println("Telefone: " + telefone);
 	}
 
-	void Menu(Scanner scan)
+	void verLivros(ArrayList<Livro> livros)
+	{
+		int qtd = livros.size();
+		Visual.displayLivrosInicio(this);
+		for (int i = 0; i<qtd; i++)
+		{
+			Visual.printLivro(this, livros.get(i), i);
+		}
+		Visual.fimBorda(this);
+	}
+
+	void Menu(Scanner scan, ArrayList<Livro> livros)
 	{
 		
 	}

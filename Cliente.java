@@ -27,6 +27,9 @@ public class Cliente extends Pessoa{
         System.out.printf("-------------------------------%n");
     }
 
+    String get_nomeLivro(int idx){
+        return livrosEmprestados.get(idx).getTitulo();
+    }
     void DevolverLivro(int number){
         livrosEmprestados.remove(number-1);
     }

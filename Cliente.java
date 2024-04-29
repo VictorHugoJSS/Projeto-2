@@ -36,16 +36,6 @@ public class Cliente extends Pessoa{
 		return -1;
 	}
 
-    void Inventario()
-    {
-        int tam = livrosEmprestados.size();
-        Visual.displayInventarioInicio(this);
-        for (int i = 0; i < tam; i++)
-    	{
-			Visual.printEmprestado(this, livrosEmprestados.get(i), i+1);
-		}
-    }
-
     int pegarEmprestado(Livro livro)
     {
         int tam = livrosEmprestados.size();
@@ -63,14 +53,49 @@ public class Cliente extends Pessoa{
         return 1;
     }
 
+    void DevolverLivro(Livro livro, ArrayList<Livro> livros)
+    {
+        Livro copia;
+        int tam = livros.size();
+        for (int i = 0; i < tam; i++)
+    	{
+			copia = livros.get(i);
+            if (livro.idLivro == copia.idLivro) { livros.get(i).qtd++; break; }
+		}
+        livrosEmprestados.remove(livro);
+    }
+
+    void Inventario(Scanner scan, ArrayList<Livro> livros)
+    {
+        int menu = 10;
+        int tam;
+        do{
+            tam = livrosEmprestados.size();
+            Visual.displayInventarioInicio(this);
+            for (int i = 0; i < tam; i++)
+    	    {Visual.printEmprestado(this, livrosEmprestados.get(i), i);}
+            Visual.fimBorda(this);
+            try {menu = scan.nextInt(); } 
+		    catch (InputMismatchException e)
+		    { scan.next(); menu = 10; }
+
+            if (menu <= 0) {return;}
+            else if (menu <= tam) {
+                DevolverLivro(livrosEmprestados.get(menu-1), livros);
+            }
+
+
+        } while ( menu != 0);
+    }
+
     void navegarLivros(Scanner scan, ArrayList<Livro> livros)
     {
         
         int menu = 10;
+        Livro livro;
         do 
 	{
 		verLivros(livros);
-        Livro livro;
         Visual.EscolhaLivro();
 		try {menu = scan.nextInt(); } 
 		catch (InputMismatchException e)
@@ -136,7 +161,7 @@ public class Cliente extends Pessoa{
                      break;
 	
 					  case 2 :
-					  Inventario();
+					  Inventario(scan, livros);
 					  break;
 	
 					  case 3 :

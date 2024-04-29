@@ -107,6 +107,60 @@ public class Visual {
         System.out.print(ANSI_RESET);
     }
 
+    public static void displayInventarioInicio(Cliente pessoa)
+    {   
+
+        String cor;
+        switch ( ((Cliente) pessoa).getCor() )
+        {
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
+        }
+        System.out.print(cor);
+        
+
+        System.out.print("\n\n\n                                 ~INVENTARIO~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("\n                 Livros que voce tem:\n");
+        System.out.print(ANSI_RESET);
+    }
+
+    public static void printEmprestado(Pessoa pessoa, Livro livro, int i)
+    {   
+        String cor = ANSI_RESET;
+        if (pessoa instanceof Cliente)
+        {
+        switch ( ((Cliente) pessoa).getCor() )
+        {
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
+        }
+        System.out.print(cor);
+        }
+
+       
+        System.out.print("\n                 [" + (i+1) + "] - " + livro.titulo);
+        System.out.print("\n\n                 ID  : " + livro.idLivro + " | Autor : " + livro.autor);
+        System.out.print("\n             ________________________________________________\n");
+        System.out.print(ANSI_RESET);
+    }
+
     
     public static void printLivro(Pessoa pessoa, Livro livro, int i)
     {   
@@ -140,18 +194,21 @@ public class Visual {
 
     public static void infoLivro(Cliente cliente, Livro livro)
     {   
-        switch (cliente.getCor())
+        String cor;
+        switch ( cliente.getCor() )
         {
-            case 0 : System.out.print(ANSI_RESET); break;
-            case 1 : System.out.print(ANSI_RED); break;
-            case 2 : System.out.print(ANSI_GREEN); break;
-            case 3 : System.out.print(ANSI_YELLOW); break;
-            case 4 : System.out.print(ANSI_BLUE); break;
-            case 5 : System.out.print(ANSI_CYAN); break;
-            case 6 : System.out.print(ANSI_PURPLE); break;
-            case 7 : System.out.print(ANSI_BLACK); break;
-            case 8 : System.out.print(ANSI_WHITE); break;
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
         }
+        System.out.print(cor);
         int qtd = livro.getQtd();
         System.out.print("\n\n\n                             ~" +livro.getTitulo()+ "~                               \n");
         System.out.print("       ____________________________________________________________       \n\n");
@@ -160,6 +217,7 @@ public class Visual {
         System.out.print("       	     Quantidade disponivel: " + qtd + "\n");
         System.out.print("             ________________________________________________\n\n");
         if (qtd > 0) {System.out.print("       	     [1] Pegar livro emprestado\n");}
+        else {System.out.print(ANSI_RED + "       	     [1] Pegar livro emprestado\n" + cor);}
         System.out.print("       	     [2] Adicionar na lista de livros seguidos\n");
         System.out.print("       	     [0] Voltar\n");
         System.out.print("       ____________________________________________________________       \n\n");
@@ -227,6 +285,21 @@ public class Visual {
     public static void EscolhaLivro()
     {
         System.out.print(ANSI_GREEN + "\n        >>>Digite o numero do livro que voce quer consultar, ou digite [0] para voltar.\n" + ANSI_RESET);
+    }
+
+    public static void JaTemoLivro()
+    {
+        System.out.print(ANSI_RED + "\n        >>>Voce ja tem esse livro!.\n" + ANSI_RESET);
+    }
+
+    public static void SemLivro()
+    {
+        System.out.print(ANSI_RED + "\n        >>>Nao ha copias disponiveis do livro!.\n" + ANSI_RESET);
+    }
+
+    public static void EmprestadoComSucesso()
+    {
+        System.out.print(ANSI_GREEN + "\n        >>>LIvro adquirido com sucesso, confira seu inventario!.\n" + ANSI_RESET);
     }
 
     public static void fimBorda(Pessoa pessoa)

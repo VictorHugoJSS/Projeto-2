@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Cliente extends Pessoa{
     private ArrayList<Livro> livrosEmprestados = new ArrayList<>();
+    private ArrayList<Livro> livrosSeguidos = new ArrayList<>();
     private int cor;
     
 
@@ -26,20 +27,25 @@ public class Cliente extends Pessoa{
         this.cor = cor;   
     }
 
-    public int getEmprestadosSize()
+    public int getEmprestadosSize() // Determina o tamanho de array de livros emprestados do cliente
     {
         return livrosEmprestados.size();
     }
 
-    static int Busca(ArrayList<Pessoa> pessoas, String input)
-	{
-		int num = pessoas.size();
-		for (int i = 0; i < num; i++)
+    
+    int seguir(Livro livro) // Adiciona o livro para uma lista separada do usuario, que te notifica caso algum livro seja atualizado.
+    {
+        int tam = livrosSeguidos.size();
+        Livro copia;
+        for (int i = 0; i < tam; i++)
     	{
-			if ((pessoas.get(i)).getId().equals(input)) { return i; } 
-		}
-		return -1;
-	}
+            copia = livrosSeguidos.get(i);
+            if (livro.idLivro == copia.idLivro) { return 0; }
+        }
+        livro.last = livro.qtd;
+        livrosSeguidos.add(livro);
+        return 1;
+    }
 
     int pegarEmprestado(Livro livro)
     {
@@ -70,7 +76,7 @@ public class Cliente extends Pessoa{
         livrosEmprestados.remove(livro);
     }
 
-    void Inventario(Scanner scan, ArrayList<Livro> livros)
+    void Inventario(Scanner scan, ArrayList<Livro> livros) // Visualiza e devolve os livros que voce tem emprestado
     {
         int menu = 10;
         int tam;
@@ -80,20 +86,48 @@ public class Cliente extends Pessoa{
             for (int i = 0; i < tam; i++)
     	    {Visual.printEmprestado(this, livrosEmprestados.get(i), i);}
             Visual.fimBorda(this);
+            Visual.DevolverTooltip();
             try {menu = scan.nextInt(); } 
 		    catch (InputMismatchException e)
 		    { scan.next(); menu = 10; }
 
             if (menu <= 0) {return;}
             else if (menu <= tam) {
-                DevolverLivro(livrosEmprestados.get(menu-1), livros);
+                DevolverLivro(livrosEmprestados.get(menu-1), livros); // Devolve o livro que voce selecionar com o numero mostrado
             }
 
 
         } while ( menu != 0);
     }
 
-    void navegarLivros(Scanner scan, ArrayList<Livro> livros)
+    void Seguidos(Scanner scan, ArrayList<Livro> livros)
+    {
+        int menu = 10;
+        int tam;
+        do{
+            tam = livrosSeguidos.size();
+            Visual.displaySeguidosInicio(this);
+            for (int i = 0; i < tam; i++)
+    	    {
+                Visual.printSeguido(this, livrosSeguidos.get(i), i);
+                livrosSeguidos.get(i).last = livrosSeguidos.get(i).qtd;
+            }
+            Visual.fimBorda(this);
+            Visual.SeguirTooltip();
+            try {menu = scan.nextInt(); } 
+		    catch (InputMismatchException e)
+		    { scan.next(); menu = 10; }
+
+            if (menu <= 0) {return;}
+            else if (menu <= tam) {
+                livrosSeguidos.remove(livrosSeguidos.get(menu-1)); // Esqueçe o livro que voce selecionar com o numero mostrado
+            }
+
+
+        } while ( menu != 0);
+    }
+
+    void navegarLivros(Scanner scan, ArrayList<Livro> livros) // A funçao para ver o catalogo de livros disponiveis e suas informaçoes
     {
         
         int menu = 10;
@@ -107,6 +141,7 @@ public class Cliente extends Pessoa{
 		{ scan.next(); menu = 10; }
 				
         if (menu <= 0) {return;}
+        if (menu > livros.size()) {} // prevente acessar array fora de bounds
         else 
         {
             livro = livros.get(menu-1);
@@ -116,7 +151,7 @@ public class Cliente extends Pessoa{
 	} while (menu != 0);
     }
 
-    void infoLivro(Scanner scan, Livro livro)
+    void infoLivro(Scanner scan, Livro livro) // Quando voce escolhe um livro da lista em navegarLivros, te permitindo emprestar ou seguir
     {
         int menu = 10;
         int retorno;
@@ -133,10 +168,18 @@ public class Cliente extends Pessoa{
                          if (retorno == 1) { Visual.EmprestadoComSucesso();}
                          else if (retorno == -1) { Visual.SemLivro(); }
                          else if (retorno == 0) { Visual.JaTemoLivro(); }
+                        scan.nextLine();
+                        Visual.EnterParaContinuar();
+                        scan.nextLine();
                          break;
         
                           case 2 :
-                          System.out.print(">>> seguir!\n");
+                          retorno = seguir(livro);
+                          if (retorno == 0) {Visual.JaSeguindo();}
+                          if (retorno == 1) {Visual.Seguiu();}
+                          scan.nextLine();
+                          Visual.EnterParaContinuar();
+                          scan.nextLine();
                           break;
         
                           case 0 :
@@ -148,8 +191,29 @@ public class Cliente extends Pessoa{
               
         } while (menu != 0);
     }
+
+    int verificarMudança(ArrayList<Livro> livros) // Verifica se algum dos livros seguidos do cliente teve sua quantidade alterada, e se sim, retorna a flag positiva
+    {
+        Livro copia; Livro copiaseg;
+        int i; int j;
+        for (i = 0; i < livrosSeguidos.size(); i++)
+        {
+            copiaseg = livrosSeguidos.get(i);
+            for (j = 0; j < livros.size(); j++)
+            {
+                copia = livros.get(j);
+                if (copia.idLivro.equals(copiaseg.idLivro))
+                {
+                    if (copia.qtd != copiaseg.last)
+                    {return 1;}
+                }
+
+            }
+        }
+        return 0;
+    }
     
-    void mudarCor(Scanner scanner){
+    void mudarCor(Scanner scanner){  // easter egg : deixa voce mudar as cores dos prints do usuario
         Visual.mudarCor();
         int value = scanner.nextInt();
         
@@ -166,26 +230,45 @@ public class Cliente extends Pessoa{
         }
     }
 
-    void feedback(Scanner scan)
+    void feedback(Scanner scan) // Deixa voce enviar uma string para a conta administradora poder ler.
     {
         scan.nextLine();
         String feed;
         Visual.feedback(this);
         feed = scan.nextLine();
         Feedback feedback = new Feedback();
-        feedback.setID(this.getId());
+        feedback.setID(this.GetNome());
         feedback.setConteudo(feed);
         Pessoa.enviarFeedback(feedback);
         Visual.feedbackEnviado();
         feed = scan.nextLine();
     }
+
+    int removerConta(Scanner scan, ArrayList<Pessoa> pessoas) // Apenas permite remoçao caso nao tenha nenhum livro a ser devolvido. Pede verificaçao de senha.
+	{
+        scan.nextLine();
+        String input;
+		int qtd = livrosEmprestados.size();
+        Visual.removerConta(qtd, this);
+        if (qtd > 0) { input = scan.nextLine(); return 0; }
+        while (true)
+        {
+            input = scan.nextLine();
+            if (input.equals("0")) { return 0; }
+            if ( verificarSenha(input) == 1) { pessoas.remove(this); return 1; }
+            else {Visual.senhaIncorreta();}
+        }
+	}
     
-    void Menu(Scanner scan, Biblioteca biblioteca)
+    void Menu(Scanner scan, Biblioteca biblioteca) // O menu do cliente.
     {
         int menu = 10;
+        int retorno;
+        int mudança;
         do 
 	{
-		Visual.displayCliente(this);
+        mudança = verificarMudança(biblioteca.livros); // Verifica se algum dos livros seguidos foi atualizados
+		Visual.displayCliente(this, mudança); // A flag "mudança" e pra poder printar a cor alterada do case 3, como uma notificaçao.
 		try {menu = scan.nextInt(); } 
 		catch (InputMismatchException e)
 		{ scan.next(); menu = 10; }
@@ -200,19 +283,20 @@ public class Cliente extends Pessoa{
 					  break;
 	
 					  case 3 :
-					  System.out.print(">>> notifs!\n");
+					  Seguidos(scan, livrosEmprestados);
 					  break;
 	
-					  case 4 :
-					  System.out.print(">>> gerenciar acc!\n");
+                      case 4 :
+					  retorno = removerConta(scan, biblioteca.pessoas);
+                      if (retorno == 1) { return; } // Caso a conta tenha sido removida, manda o cliente de volta para a tela de login
 					  break;
 	
 					  case 5 :
-					  feedback(scan);
+					  feedback(scan); // Escrever feedback ao admin
 					  break;
 
                       case 6 :
-                      mudarCor(scan);
+                      mudarCor(scan); // Easter egg
 					  break;
 	
 					  case 0 :

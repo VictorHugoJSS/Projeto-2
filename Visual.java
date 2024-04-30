@@ -1,5 +1,7 @@
 public class Visual {
 
+    // Essa classe inteira e apenas uma forma de conter os prints mais bagunçados e repetitivos da historia. //
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -16,13 +18,44 @@ public class Visual {
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("                          Bem vindo a biblioteca.\n");
         System.out.print("             ________________________________________________\n");
-        System.out.print("\n                 Entrar:\n\n");
+        System.out.print(ANSI_GREEN + "\n                 Entrar:\n\n" + ANSI_RESET);
         System.out.print("       	     [1] Realizar login\n");
         System.out.print("       	     [2] Cadastrar nova conta\n");
         System.out.print("             ________________________________________________\n\n");
         System.out.print("       	     [3] Sobre\n");
         System.out.print("       	     [4] Termos de uso\n");
         System.out.print("       	     [0] Sair\n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("              ");
+    }
+
+    public static void sobreNos(Biblioteca biblioteca)
+    {
+        int qtdLivros = biblioteca.livros.size();
+        System.out.print("\n\n\n                               ~SOBRE NOS~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("               Tentamos trazer um sistema de livraria que \n              alcança eficiencia, estabilidade e segurança.\n\n");
+        System.out.print("                O nosso sistema ja tem : \n\n              - ");
+        System.out.print( qtdLivros + " livros registrados\n              - ");
+        System.out.print( biblioteca.qtdClientes() + " clientes ativos. \n");
+        System.out.print("             ________________________________________________\n\n");
+        System.out.print("                Trabalho feito por :\n\n");
+        System.out.print("       	      - Matheus Verissimo\n");
+        System.out.print("       	      - Vitor Hugo\n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("              ");
+    }
+
+    public static void termosDeUso()
+    {
+        System.out.print("\n\n\n                             ~TERMOS DE USO~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("       	- O cliente se compromete a nao roubar os livros.\n");
+        System.out.print("       	- O cliente se compromete a nao rasgar os livros.\n");
+        System.out.print("       	- Nao jogue fogo, acido ou similares nos livros.\n");
+        System.out.print("       	- Nao rasgue os livros.\n");
+        System.out.print("       	- Terminantemente proibido escrever, desenhar ou de\n          qualquer forma aplicar sua liberdade artistica nos livros.\n");
+        System.out.print("       	- Por favor nao denuncie os livros.\n");
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("              ");
     }
@@ -51,7 +84,7 @@ public class Visual {
     {
         System.out.print("\n\n\n                                 ~LOGIN~                                 \n");
         System.out.print("       ____________________________________________________________       \n\n");
-        System.out.print("\n                 Digite o ID de usuario, ou 0 para voltar. \n\n");
+        System.out.print(ANSI_GREEN + "\n              >>>Digite o ID de usuario, ou 0 para voltar. \n\n" + ANSI_RESET);
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("              ");
     }
@@ -60,26 +93,29 @@ public class Visual {
     {
         System.out.print("\n\n\n                                 ~LOGIN~                                 \n");
         System.out.print("       ____________________________________________________________       \n\n");
-        System.out.print("\n                 Tentando entrar com o ID: " + nome + "\n\n ");
-        System.out.print("\n                 Digite sua senha, ou 0 para voltar : \n\n");
+        System.out.print(ANSI_GREEN + "\n              >>>Tentando entrar com o ID: " + ANSI_RESET + nome + "\n\n ");
+        System.out.print(ANSI_GREEN + "\n              >>>Digite sua senha, ou 0 para voltar : \n\n" + ANSI_RESET);
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("              ");
     }
 
-    public static void displayCliente(Cliente cliente)
+    public static void displayCliente(Cliente cliente, int check)
     {   
-        switch (cliente.getCor())
+        String cor;
+        switch ( cliente.getCor() )
         {
-            case 0 : System.out.print(ANSI_RESET); break;
-            case 1 : System.out.print(ANSI_RED); break;
-            case 2 : System.out.print(ANSI_GREEN); break;
-            case 3 : System.out.print(ANSI_YELLOW); break;
-            case 4 : System.out.print(ANSI_BLUE); break;
-            case 5 : System.out.print(ANSI_CYAN); break;
-            case 6 : System.out.print(ANSI_PURPLE); break;
-            case 7 : System.out.print(ANSI_BLACK); break;
-            case 8 : System.out.print(ANSI_WHITE); break;
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
         }
+        System.out.print(cor);
 
         System.out.print("\n\n\n                               ~BEM VINDO~                               \n");
         System.out.print("       ____________________________________________________________       \n\n");
@@ -88,7 +124,8 @@ public class Visual {
         System.out.print("\n                 Livros:\n\n");
         System.out.print("       	     [1] Procurar livros\n");
         System.out.print("       	     [2] Ver seu inventario\n");
-        System.out.print("       	     [3] Notificaçoes de livros seguidos\n");
+        if (check == 0) { System.out.print("       	     [3] Notificaçoes de livros seguidos\n"); }
+        else {System.out.print(ANSI_GREEN + "       	     [3] Notificaçoes de livros seguidos\n" + cor); }
         System.out.print("             ________________________________________________\n\n");
         System.out.print("       	     [4] Remover conta\n");
         System.out.print("       	     [5] Enviar feedback\n");
@@ -126,6 +163,33 @@ public class Visual {
         System.out.print(ANSI_RESET);
     }
 
+    public static void displaySeguidosInicio(Cliente pessoa)
+    {   
+
+        String cor;
+        switch ( ((Cliente) pessoa).getCor() )
+        {
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
+        }
+        System.out.print(cor);
+        
+
+        System.out.print("\n\n\n                                ~SEGUIDOS~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("                 Livros que voce segue:\n");
+        System.out.print("             ________________________________________________\n");
+        System.out.print(ANSI_RESET);
+    }
+
     public static void displayInventarioInicio(Cliente pessoa)
     {   
 
@@ -146,7 +210,7 @@ public class Visual {
         System.out.print(cor);
         
 
-        System.out.print("\n\n\n                                 ~INVENTARIO~                               \n");
+        System.out.print("\n\n\n                                ~INVENTARIO~                               \n");
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("                 Livros que voce tem:\n");
         System.out.print(ANSI_RESET);
@@ -176,6 +240,37 @@ public class Visual {
        
         System.out.print("\n                 [" + (i+1) + "] - " + livro.titulo);
         System.out.print("\n\n                 ID  : " + livro.idLivro + " | Autor : " + livro.autor);
+        System.out.print("\n             ________________________________________________\n");
+        System.out.print(ANSI_RESET);
+    }
+
+    public static void printSeguido(Pessoa pessoa, Livro livro, int i)
+    {   
+        String cor = ANSI_RESET;
+        if (pessoa instanceof Cliente)
+        {
+        switch ( ((Cliente) pessoa).getCor() )
+        {
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
+        }
+        System.out.print(cor);
+        }
+
+       
+        System.out.print("\n                 [" + (i+1) + "] - " + livro.titulo);
+        if (livro.qtd != livro.last) { System.out.print(ANSI_GREEN + "  < ----- ATUALIZADO!" + cor); }
+        System.out.print("\n\n                 ID  : " + livro.idLivro + " | Autor : " + livro.autor);
+        if (livro.qtd > livro.last) { System.out.print("\n\n                 QTD : " + ANSI_GREEN + livro.qtd + cor ); }
+        if (livro.qtd < livro.last) { System.out.print("\n\n                 QTD : " + ANSI_RED + livro.qtd + cor ); }
         System.out.print("\n             ________________________________________________\n");
         System.out.print(ANSI_RESET);
     }
@@ -229,7 +324,7 @@ public class Visual {
         }
         System.out.print(cor);
         int qtd = livro.getQtd();
-        System.out.print("\n\n\n                             ~" +livro.getTitulo()+ "~                               \n");
+        System.out.print("\n\n\n                     ~" +livro.getTitulo()+ "~                               \n");
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("             ________________________________________________\n");
         System.out.print("       	     Autor: " + livro.getAutor() + "\n");
@@ -357,6 +452,11 @@ public class Visual {
         System.out.print(ANSI_GREEN + "\n        >>>Esse ID nao esta disponivel, tente outro.\n" + ANSI_RESET);
     }
 
+    public static void EnterParaContinuar()
+    {
+        System.out.print(ANSI_GREEN + "\n            >>>Aperte enter para continuar.\n" + ANSI_RESET);
+    }
+
     public static void EscolhaLivro()
     {
         System.out.print(ANSI_GREEN + "\n        >>>Digite o numero do livro que voce quer consultar, ou digite [0] para voltar.\n" + ANSI_RESET);
@@ -374,17 +474,37 @@ public class Visual {
 
     public static void SemLivro()
     {
-        System.out.print(ANSI_RED + "\n        >>>Nao ha copias disponiveis do livro!.\n" + ANSI_RESET);
+        System.out.print(ANSI_RED + "\n            >>>Nao ha copias disponiveis do livro!.\n" + ANSI_RESET);
     }
 
     public static void EmprestadoComSucesso()
     {
-        System.out.print(ANSI_GREEN + "\n        >>>LIvro adquirido com sucesso, confira seu inventario!.\n" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "\n            >>>LIvro adquirido com sucesso, confira seu inventario!.\n" + ANSI_RESET);
     }
 
     public static void feedbackEnviado()
     {
-        System.out.print(ANSI_GREEN + "\n        >>>Seu feedback foi enviado! Aperte enter para continuar.\n" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "\n             >>>Seu feedback foi enviado! Aperte enter para continuar.\n" + ANSI_RESET);
+    }
+
+    public static void JaSeguindo()
+    {
+        System.out.print(ANSI_GREEN + "\n            >>>Voce ja esta seguindo esse livro!.\n" + ANSI_RESET);
+    }
+
+    public static void Seguiu()
+    {
+        System.out.print(ANSI_GREEN + "\n            >>>Livro seguido com sucesso!.\n" + ANSI_RESET);
+    }
+
+    public static void DevolverTooltip()
+    {
+        System.out.print(ANSI_GREEN + "\n            >>>Selecione o numero de um livro para o devolver, ou [0] para voltar.\n" + ANSI_RESET);
+    }
+
+    public static void SeguirTooltip()
+    {
+        System.out.print(ANSI_GREEN + "\n            >>>Selecione o numero de um livro para parar de seguir, ou [0] para voltar.\n" + ANSI_RESET);
     }
 
     public static void fimBorda(Pessoa pessoa)
@@ -417,7 +537,7 @@ public class Visual {
     System.out.print("[1] - Lista de livros\n");
     System.out.print("[2] - Novo livro\n");
     System.out.print("[3] - Remover livro\n");
-    System.out.print("[4] - Alterar quantidade de livros\n");
+    System.out.print("[4] - Alterar quantidade de um livro\n");
 	System.out.print("[0] - Sair\n");
     }
 

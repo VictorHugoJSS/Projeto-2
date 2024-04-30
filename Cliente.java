@@ -147,7 +147,7 @@ public class Cliente extends Pessoa{
     void mudarCor(Scanner scanner){
         Visual.mudarCor();
         int value = scanner.nextInt();
-
+        
         switch(value){
             case 1: setCor(1); break;
             case 2: setCor(2); break;
@@ -160,7 +160,8 @@ public class Cliente extends Pessoa{
             default: setCor(0); break;
         }
     }
-    void Menu(Scanner scan, ArrayList<Livro> livros)
+    
+    void Menu(Scanner scan, Biblioteca biblioteca)
     {
         int menu = 10;
         do 
@@ -172,11 +173,11 @@ public class Cliente extends Pessoa{
 				switch (menu)
 				  {
                      case 1 :
-                     navegarLivros(scan, livros);
+                     navegarLivros(scan, biblioteca.livros);
                      break;
 	
 					  case 2 :
-					  Inventario(scan, livros);
+					  Inventario(scan, biblioteca.livros);
 					  break;
 	
 					  case 3 :

@@ -3,8 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Funcionario extends Pessoa{
-    String turno;
-    Double salario;
+    private Double salario;
 
     // Funcionarios so podem ser criados e removidos pela classe admin.//
 

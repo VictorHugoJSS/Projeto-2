@@ -28,6 +28,26 @@ public class Visual {
         System.out.print("              ");
     }
 
+    public static void mudarCor()
+    {
+        System.out.print("\n\n\n                               ~MUDAR COR~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("                         Voce achou a opçao secreta!\n");
+        System.out.print("             ________________________________________________\n");
+        System.out.print("\n                 Cores:\n\n");
+        System.out.print("       	     [0] Cor normal\n");
+        System.out.print(ANSI_RED + "       	     [1] Vermelho\n" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "       	     [2] Verde\n" + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "       	     [3] Amarelo\n" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "       	     [4] Azul\n" + ANSI_RESET);
+        System.out.print(ANSI_CYAN + "       	     [5] Ciano\n" + ANSI_RESET);
+        System.out.print(ANSI_PURPLE + "       	     [6] Roxo\n" + ANSI_RESET);
+        System.out.print(ANSI_BLACK + "       	     [7] Preto\n" + ANSI_RESET);
+        System.out.print(ANSI_WHITE + "       	     [8] Branco\n" + ANSI_RESET);
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("              ");
+    }
+
     public static void displayLoginID()
     {
         System.out.print("\n\n\n                                 ~LOGIN~                                 \n");
@@ -185,7 +205,7 @@ public class Visual {
 
        
         System.out.print("\n                 [" + (i+1) + "] - " + livro.titulo);
-        System.out.print("\n\n                 ID  : " + livro.idLivro + " | Autor : " + livro.autor);
+        System.out.print("\n\n                 ID  : " + livro.idLivro + "\n                 Autor : " + livro.autor);
         if (livro.getQtd() == 0){ System.out.print("\n                 QTD : " + ANSI_RED + livro.qtd + cor); }
         else{ System.out.print("\n" + "                 QTD : " + livro.qtd); }
         System.out.print("\n             ________________________________________________\n");
@@ -326,23 +346,15 @@ public class Visual {
         System.out.print(ANSI_RESET + "              ");
     }
 
-    public static void mudarCor()
+    public static void funcionarioMenu(Funcionario funcionario)
     {
-        System.out.print("\n\n\n                               ~MUDAR COR~                               \n");
-        System.out.print("       ____________________________________________________________       \n\n");
-        System.out.print("                          Voce achou a opçao secreta!.\n");
-        System.out.print("             ________________________________________________\n");
-        System.out.print("\n                 Cores:\n\n");
-        System.out.print("                [0] Cor normal\n");
-        System.out.print(ANSI_RED + "                [1] Vermelho\n" + ANSI_RESET);
-        System.out.print(ANSI_GREEN + "                [2] Verde\n" + ANSI_RESET);
-        System.out.print(ANSI_YELLOW + "                [3] Amarelo\n" + ANSI_RESET);
-        System.out.print(ANSI_BLUE + "                [4] Azul\n" + ANSI_RESET);
-        System.out.print(ANSI_CYAN + "                [5] Ciano\n" + ANSI_RESET);
-        System.out.print(ANSI_PURPLE + "                [6] Roxo\n" + ANSI_RESET);
-        System.out.print(ANSI_BLACK + "                [7] Preto\n" + ANSI_RESET);
-        System.out.print(ANSI_WHITE + "                [8] Branco\n" + ANSI_RESET);
-        System.out.print("       ____________________________________________________________       \n\n");
-        System.out.print("              ");
+    System.out.print("Bem vindo, " + funcionario.GetNome() + ".\n");
+    System.out.print("-----------------------------------------------\n");
+    System.out.print("[1] - Lista de livros\n");
+    System.out.print("[2] - Novo livro\n");
+    System.out.print("[3] - Remover livro\n");
+    System.out.print("[4] - Alterar quantidade de livros\n");
+	System.out.print("[0] - Sair\n");
     }
+
 }

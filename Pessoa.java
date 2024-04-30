@@ -99,6 +99,11 @@ static void inicializarAdmin(Biblioteca biblioteca)
 		Admin.novoAdmin(biblioteca);
 	}
 
+int removerConta(Biblioteca biblioteca, Scanner scan)
+	{
+		return 1;
+	}
+
 
 private static class Admin extends Pessoa 
 {	
@@ -112,7 +117,6 @@ private static class Admin extends Pessoa
 
 	void menuAdmin()
     {
-    System.out.print("Logado como o administrador.\n");
     System.out.print("-----------------------------------------------\n");
     System.out.print("[1] - Novo funcionario\n");
     System.out.print("[2] - Lista de usuarios\n");
@@ -121,6 +125,19 @@ private static class Admin extends Pessoa
     System.out.print("[5] - Estatisticas\n");
 	System.out.print("[0] - Sair\n");
     }
+
+	int removerConta(ArrayList<Pessoa> pessoas, Scanner scan)
+	{
+		scan.nextLine();
+		String id; int retorno; 
+		System.out.print("\nID a ser removido : "); id = scan.nextLine(); 
+		retorno = Pessoa.Busca(pessoas, id);
+		if (retorno == -1) 
+		{System.out.print("\nConta nao encontrada.\n"); return 0;}
+		pessoas.remove(pessoas.get(retorno));
+		System.out.print("\nConta removida com sucesso.\n");
+		return 1;
+	}
 
 	void novoFuncionario(Biblioteca biblioteca, Scanner scan)
 	{
@@ -146,6 +163,7 @@ private static class Admin extends Pessoa
 	{
 		System.out.print("\u001B[32m");
 		int menu = 10;
+		System.out.print("Logado como o administrador.\n");
 		do 
 		{
 		menuAdmin();
@@ -157,6 +175,10 @@ private static class Admin extends Pessoa
 				  {
 					  case 1 :
 					  novoFuncionario(biblioteca, scan);
+					  break;
+
+					  case 4 :
+					  removerConta(biblioteca.pessoas, scan);
 					  break;
 
 					  case 0 :

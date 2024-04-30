@@ -3,8 +3,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Funcionario extends Pessoa{
-    String turno;
-    Double salario;
+    private Double salario;
+
+    // Funcionarios so podem ser criados e removidos pela classe admin.//
 
     void setSalario(double salario)
     {
@@ -16,7 +17,7 @@ public class Funcionario extends Pessoa{
         return salario;
     }
 
-    static int BuscaLivro(ArrayList<Livro> livros, String input)
+    static int BuscaLivro(ArrayList<Livro> livros, String input) // Retorna a posição de um livro no arraylist
 	{
 		int num = livros.size();
 		for (int i = 0; i < num; i++)
@@ -26,7 +27,7 @@ public class Funcionario extends Pessoa{
 		return -1;
 	}
 
-    void verLivros(ArrayList<Livro> livros)
+    void verLivros(ArrayList<Livro> livros) // Mostra todos os livros, sem o inicio e fim enfeitado
 	{
         System.out.print("\n             ________________________________________________\n");
 		int qtd = livros.size();
@@ -44,19 +45,19 @@ public class Funcionario extends Pessoa{
         System.out.print("\nRemover livro\n-----------------------------------------------\n");
         System.out.print("\nID do livro que voce quer remover : "); id = scan.nextLine();
         int retorno = BuscaLivro(livros, id);
-        if (retorno == -1) { System.out.print("\nLivro não encontrado!\n\n"); return; }
+        if (retorno == -1) { System.out.print("\nLivro não encontrado!\n\n"); return; } 
         livros.remove(retorno);
         System.out.print("\nLivro removido com sucesso!\n\n");
 
     }
 
-    void atualizarQtd(ArrayList<Livro> livros, Scanner scan)
+    void atualizarQtd(ArrayList<Livro> livros, Scanner scan) // Atualizar a quantidade disponivel de um certo livro para ser pego emprestado
     {
         String id; int qtd;
         scan.nextLine();
         System.out.print("\nAtualizar quantidade\n-----------------------------------------------\n");
         System.out.print("\nID do livro que voce quer atualizar : "); id = scan.nextLine();
-        int retorno = BuscaLivro(livros, id);
+        int retorno = BuscaLivro(livros, id); // Encontra a posiçao do livro no array
         if (retorno == -1) { System.out.print("\nLivro não encontrado!\n\n"); return; }
         System.out.print("\nInsira a nova quantidade : ");
         try {qtd = scan.nextInt(); } catch (InputMismatchException e){ scan.next(); qtd = 0; }
@@ -81,7 +82,7 @@ public class Funcionario extends Pessoa{
 	}
     
 
-    void Menu(Scanner scan, Biblioteca biblioteca)
+    void Menu(Scanner scan, Biblioteca biblioteca) // O menu especifico para os funcionarios, nao e enfeitado que nem os dos clientes.
 	{
 		int menu = 10;
         System.out.print("Bem vindo, " + this.GetNome() + ".\n");

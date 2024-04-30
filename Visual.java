@@ -326,5 +326,23 @@ public class Visual {
         System.out.print(ANSI_RESET + "              ");
     }
 
-    
+    public static void mudarCor()
+    {
+        System.out.print("\n\n\n                               ~MUDAR COR~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("                          Voce achou a opçao secreta!.\n");
+        System.out.print("             ________________________________________________\n");
+        System.out.print("\n                 Cores:\n\n");
+        System.out.print("                [0] Cor normal\n");
+        System.out.print(ANSI_RED + "                [1] Vermelho\n" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "                [2] Verde\n" + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "                [3] Amarelo\n" + ANSI_RESET);
+        System.out.print(ANSI_BLUE + "                [4] Azul\n" + ANSI_RESET);
+        System.out.print(ANSI_CYAN + "                [5] Ciano\n" + ANSI_RESET);
+        System.out.print(ANSI_PURPLE + "                [6] Roxo\n" + ANSI_RESET);
+        System.out.print(ANSI_BLACK + "                [7] Preto\n" + ANSI_RESET);
+        System.out.print(ANSI_WHITE + "                [8] Branco\n" + ANSI_RESET);
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("              ");
+    }
 }

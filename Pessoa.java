@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Pessoa{
@@ -88,9 +89,86 @@ public class Pessoa{
 		Visual.fimBorda(this);
 	}
 
-	void Menu(Scanner scan, ArrayList<Livro> livros)
+	void Menu(Scanner scan, Biblioteca biblioteca)
 	{
 		
 	}
 
-} 
+static void inicializarAdmin(Biblioteca biblioteca)
+	{
+		Admin.novoAdmin(biblioteca);
+	}
+
+
+private static class Admin extends Pessoa 
+{	
+	static void novoAdmin(Biblioteca biblioteca)
+	{
+		Admin admin = new Admin();
+		admin.setId("admin");
+		admin.setSenha("SenhaMuitoSegura");
+		biblioteca.pessoas.add(admin);
+	}
+
+	void menuAdmin()
+    {
+    System.out.print("Logado como o administrador.\n");
+    System.out.print("-----------------------------------------------\n");
+    System.out.print("[1] - Novo funcionario\n");
+    System.out.print("[2] - Lista de usuarios\n");
+    System.out.print("[3] - Ver feedback\n");
+    System.out.print("[4] - Remover usuario\n");
+    System.out.print("[5] - Estatisticas\n");
+	System.out.print("[0] - Sair\n");
+    }
+
+	void novoFuncionario(Biblioteca biblioteca, Scanner scan)
+	{
+		scan.nextLine();
+		String id; String nome; String endereco; String telefone; String senha; Double salario;
+		System.out.print("\nNovo funcionario\n-----------------------------------------------\n");
+		while (true)
+		{ 
+			System.out.print("\nID : "); id = scan.nextLine(); 
+			if (Pessoa.Busca(biblioteca.pessoas, id) == -1) {break;}
+		}
+		System.out.print("\nNome : "); nome = scan.nextLine();
+		System.out.print("\nEndereco : "); endereco = scan.nextLine();
+		System.out.print("\nTelefone : "); telefone = scan.nextLine();
+		System.out.print("\nSenha : "); senha = scan.nextLine();
+		System.out.print("\nSalario : "); salario = scan.nextDouble();
+		Funcionario foo = new Funcionario();
+		foo.setId(id); foo.setNome(nome); foo.setEndereco(endereco); foo.setTelefone(telefone); foo.setSenha(senha); foo.setSalario(salario);
+		biblioteca.pessoas.add(foo);
+	}
+	
+    void Menu(Scanner scan, Biblioteca biblioteca)
+	{
+		System.out.print("\u001B[32m");
+		int menu = 10;
+		do 
+		{
+		menuAdmin();
+		try {menu = scan.nextInt(); } 
+		catch (InputMismatchException e)
+		{ scan.next(); menu = 10; }
+	
+				switch (menu)
+				  {
+					  case 1 :
+					  novoFuncionario(biblioteca, scan);
+					  break;
+
+					  case 0 :
+					  System.out.print("\u001B[0m"); 
+					  default :
+					  System.out.print(">>> invalido!\n");
+				  }
+		  
+	
+		} while (menu != 0);
+	}
+
+}
+
+}

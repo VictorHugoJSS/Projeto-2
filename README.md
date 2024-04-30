@@ -10,6 +10,11 @@
 - Biblioteca contendo a logica de login para tanto clientes quanto funcionarios/administrador, tambem servindo como o cadastro de clientes :
   - Contem o array de todas as pessoas envolvidas, e um array para armazenar os objetos Livros e seus parametros
  
+- Outros arquivos auxiliares
+   - Livro.java, sendo a estrutura dos livros
+   - Feedback.java, uma combinação de um texto + o nome do cliente autor para ser mais facil passar pelos metodos de varias classes
+   - Visual.java, que apenas da um lugar para esconder toda a bagunça e espaço ocupado de todos os casos do print para o usuario
+ 
   ![image](https://github.com/nodemi-alt/Projeto-2/assets/163960947/22c1b0ff-2d6f-4bd4-8124-e97833e372f2)
   
   ![image](https://github.com/nodemi-alt/Projeto-2/assets/163960947/b9676140-a7db-4226-8937-4bdfa273dd05)

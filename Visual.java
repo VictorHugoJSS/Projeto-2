@@ -22,7 +22,6 @@ public class Visual {
         System.out.print("             ________________________________________________\n\n");
         System.out.print("       	     [3] Sobre\n");
         System.out.print("       	     [4] Termos de uso\n");
-        System.out.print("       	     [5] Mudar cor do texto\n");
         System.out.print("       	     [0] Sair\n");
         System.out.print("       ____________________________________________________________       \n\n");
         System.out.print("              ");
@@ -91,7 +90,7 @@ public class Visual {
         System.out.print("       	     [2] Ver seu inventario\n");
         System.out.print("       	     [3] Notificaçoes de livros seguidos\n");
         System.out.print("             ________________________________________________\n\n");
-        System.out.print("       	     [4] Dados da conta\n");
+        System.out.print("       	     [4] Remover conta\n");
         System.out.print("       	     [5] Enviar feedback\n");
       //System.out.print("       	     [6] Mudar cor do texto\n");
         System.out.print("       	     [0] Sair\n");
@@ -297,6 +296,34 @@ public class Visual {
         System.out.print("       ____________________________________________________________       \n\n");
     }
 
+    public static void removerConta(int i, Cliente cliente)
+    {
+        String cor;
+        switch ( cliente.getCor() )
+        {
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
+        }
+
+        System.out.print(cor);
+        System.out.print("\n\n\n                             ~DELETAR CONTA~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        if (i > 0)
+         { System.out.print(ANSI_RED + "       	   >>>Erro, voce so pode remover a conta caso nao tenha nenhum livro a devolver! " + cor + "\n           Aperte enter para continuar.\n"); }
+        else 
+         { System.out.print("       >>> Digite sua senha para confirmar remoçao de conta.\n       [0] para cancelar. \n"); }
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("              ");
+    }
+
     public static void IdNaoDisponivel()
     {
         System.out.print(ANSI_GREEN + "\n        >>>Esse ID nao esta disponivel, tente outro.\n" + ANSI_RESET);
@@ -310,6 +337,11 @@ public class Visual {
     public static void JaTemoLivro()
     {
         System.out.print(ANSI_RED + "\n        >>>Voce ja tem esse livro!.\n" + ANSI_RESET);
+    }
+
+    public static void senhaIncorreta()
+    {
+        System.out.print(ANSI_RED + "\n        >>>Senha incorreta!\n        " + ANSI_RESET);
     }
 
     public static void SemLivro()
@@ -348,7 +380,6 @@ public class Visual {
 
     public static void funcionarioMenu(Funcionario funcionario)
     {
-    System.out.print("Bem vindo, " + funcionario.GetNome() + ".\n");
     System.out.print("-----------------------------------------------\n");
     System.out.print("[1] - Lista de livros\n");
     System.out.print("[2] - Novo livro\n");

@@ -26,13 +26,13 @@ public class Pessoa{
         return Senha;
     }
 
-    int verificarSenha(String Senha)
+    int verificarSenha(String Senha) // Compara a senha recebida como entrada em uma outra classe, sem deixar aquela classe ver a senha.
     {
         if ( this.Senha.equals(Senha) ) { return 1; }
         else { return 0; }
     }
 
-	static int Busca(ArrayList<Pessoa> pessoas, String input)
+	static int Busca(ArrayList<Pessoa> pessoas, String input) // Retorna posicao de uma pessoa especifica no array
 	{
 		int num = pessoas.size();
 		for (int i = 0; i < num; i++)
@@ -89,22 +89,22 @@ public class Pessoa{
 		Visual.fimBorda(this);
 	}
 
-	void Menu(Scanner scan, Biblioteca biblioteca)
+	void Menu(Scanner scan, Biblioteca biblioteca) // Molde vazio para poder sobreescrever mais facil
 	{
 		
 	}
 
-int removerConta(Biblioteca biblioteca, Scanner scan)
+int removerConta(Biblioteca biblioteca, Scanner scan) // Molde vazio para poder sobreescrever mais facil
 	{
 		return 1;
 	}
 
-static void inicializarAdmin(Biblioteca biblioteca)
+static void inicializarAdmin(Biblioteca biblioteca) // Serve como a ponte para interagir com a classe privada admin declarada mais embaixo, inicializando seus parametros de login
 	{
 		Admin.novoAdmin(biblioteca);
 	}
 
-static void enviarFeedback(Feedback feedback)
+static void enviarFeedback(Feedback feedback) // Serve como a ponte para enviar feedback para a classe privada
 	{
 		Admin.receberFeedback(feedback);
 	}
@@ -113,9 +113,9 @@ static void enviarFeedback(Feedback feedback)
 private static class Admin extends Pessoa 
 {	
 
-private static ArrayList<Feedback> feedback = new ArrayList<>();
+private static ArrayList<Feedback> feedback = new ArrayList<>(); // Lista de feedback
 
-	static void novoAdmin(Biblioteca biblioteca)
+	static void novoAdmin(Biblioteca biblioteca) // Cria os parametros de login do admin no inicio do programa, e declarado manualmente no programa e nao pode ser removido
 	{
 		Admin admin = new Admin();
 		admin.setId("admin");
@@ -127,14 +127,14 @@ private static ArrayList<Feedback> feedback = new ArrayList<>();
     {
     System.out.print("-----------------------------------------------\n");
     System.out.print("[1] - Novo funcionario\n");
-    System.out.print("[2] - Lista de usuarios\n");
+    System.out.print("[2] - Lista de cadastros\n");
     System.out.print("[3] - Ver feedback\n");
-    System.out.print("[4] - Remover usuario\n");
+    System.out.print("[4] - Remover cadastro\n");
     System.out.print("[5] - Estatisticas\n");
 	System.out.print("[0] - Sair\n");
     }
 
-	static void receberFeedback(Feedback novoFeedback)
+	static void receberFeedback(Feedback novoFeedback) // O fim da ponte que encaminha o feedback do usuario para poder alcançar o array da classe privada.
 	{
 		feedback.add(novoFeedback);
 	}
@@ -159,7 +159,7 @@ private static ArrayList<Feedback> feedback = new ArrayList<>();
 		for (int i = 0; i < qtd; i++)
 		{
 			copia = pessoas.get(i);
-			if (copia instanceof Cliente)
+			if (copia instanceof Cliente) 
 			{
 				System.out.print("Cliente - " + copia.nome + "\n\n");
 				System.out.println("ID : " +copia.ID);
@@ -182,15 +182,13 @@ private static ArrayList<Feedback> feedback = new ArrayList<>();
 		}
 	}
 
-	int removerConta(ArrayList<Pessoa> pessoas, Scanner scan)
+	int removerConta(ArrayList<Pessoa> pessoas, Scanner scan) // Sobrescrita para ao inves de pedir uma senha para excluir si mesma, pede um ID para excluir qualquer outra.
 	{
 		scan.nextLine();
 		String id; int retorno; 
 		System.out.print("\nID a ser removido : "); id = scan.nextLine(); 
 		retorno = Pessoa.Busca(pessoas, id);
 		if (retorno == -1) 
-		{System.out.print("\nConta nao encontrada.\n"); return 0;}
-		if (id.equals("admin")) 
 		{System.out.print("\nConta nao encontrada.\n"); return 0;}
 		pessoas.remove(pessoas.get(retorno));
 		System.out.print("\nConta removida com sucesso.\n");
@@ -211,13 +209,14 @@ private static ArrayList<Feedback> feedback = new ArrayList<>();
 		System.out.print("\nEndereco : "); endereco = scan.nextLine();
 		System.out.print("\nTelefone : "); telefone = scan.nextLine();
 		System.out.print("\nSenha : "); senha = scan.nextLine();
-		System.out.print("\nSalario : "); salario = scan.nextDouble();
+		System.out.print("\nSalario : "); 
+		try {salario = scan.nextDouble(); } catch (InputMismatchException e){ scan.next(); salario = 0.00; }
 		Funcionario foo = new Funcionario();
 		foo.setId(id); foo.setNome(nome); foo.setEndereco(endereco); foo.setTelefone(telefone); foo.setSenha(senha); foo.setSalario(salario);
 		biblioteca.pessoas.add(foo);
 	}
 
-	void estatisticas(Biblioteca biblioteca)
+	void estatisticas(Biblioteca biblioteca) // Mostra algumas informaçoes coletivas de todos os arrays juntos
 	{
 		int contadorLivros = 0; double contadorSalario = 0; int tam = biblioteca.livros.size();
 		int contadorClientes = 0; int contadorFuncionarios = 0; int contadorEmprestados = 0;
@@ -278,6 +277,7 @@ private static ArrayList<Feedback> feedback = new ArrayList<>();
 
 					  case 0 :
 					  System.out.print("\u001B[0m"); 
+					  break;
 			
 					  default :
 					  System.out.print(">>> invalido!\n");

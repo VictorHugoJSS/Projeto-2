@@ -38,7 +38,7 @@ void remover_cliente(Scanner scanner)
         clientes.remove(num-1);
     }
 
-void temporarioNovoLivro(String titulo, String autor, String id, int qtd)
+void NovoLivro(String titulo, String autor, String id, int qtd)
 {
 	Livro livro = new Livro();
 	livro.setInfo(titulo, autor, id, qtd);
@@ -143,7 +143,9 @@ do
 	input = scanner.nextLine();
 	if (input.equals("0")) { return; }
 		{ num = copia.verificarSenha(input); }
-	if (num == 1) { System.out.print(">>> Login efetuado com sucesso!\n"); copia.Menu(scanner, livros); return; }
+	if (num == 1) { 
+					System.out.print(">>> Login efetuado com sucesso!\n"); 
+					copia.Menu(scanner, this); return; }
 	else { System.out.print(">>> Senha incorreta, tente novamente!\n              "); }
 
 } while (check == 0);
@@ -152,15 +154,16 @@ do
 
 public void menu()
 	{
+		Pessoa.inicializarAdmin(this);
 		int main = 1;
 		int menu = 10;
 		String id;
 		String senha;
 		Scanner scanner = new Scanner(System.in);
 		adicionar_cliente("teste", "rua", "12345", "12345", "senha"); //
-		temporarioNovoLivro("titulo1", "autor1", "11111", 5);
-		temporarioNovoLivro("titulo2", "autor2", "22222", 0);
-		temporarioNovoLivro("titulo3", "autor3", "33333", 1);
+		NovoLivro("titulo1", "autor1", "11111", 5);
+		NovoLivro("titulo2", "autor2", "22222", 0);
+		NovoLivro("titulo3", "autor3", "33333", 1);
 	do 
 	{
 		Visual.displayInicio();

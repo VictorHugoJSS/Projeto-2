@@ -15,6 +15,7 @@ public class Livro{
         this.qtd = qtd;
     }
 
+
     int getQtd(){
         return qtd;
     }
@@ -30,6 +31,4 @@ public class Livro{
     String getId(){
         return idLivro;
     }
-
-
 }

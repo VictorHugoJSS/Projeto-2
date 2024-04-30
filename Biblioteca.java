@@ -10,8 +10,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"unused"})  
 
 public class Biblioteca{
-    ArrayList <Cliente> clientes = new ArrayList<>(); // 
-    ArrayList <Funcionario> proletariado = new ArrayList<>(); // Depois tira isso : e melhor usar um array do tipo Pessoa ao inves de 927458 arrays separados
     ArrayList <Livro> livros = new ArrayList<>(); //
 	ArrayList <Pessoa> pessoas = new ArrayList<Pessoa>();
 
@@ -25,18 +23,18 @@ void adicionar_cliente(String nome, String endereco, String tel, String id, Stri
 	pessoas.add(associado);
 }
 
-void remover_cliente(Scanner scanner)
+int qtdClientes() // Retorna quantidade de pessoas no array pessoas que sao apenas clientes
+{
+	Pessoa copia;
+	int contador = 0;
+	int tam = pessoas.size();
+	for (int i = 0; i < tam; i++)
 	{
-        int j = 1;
-        System.out.printf("Id | Nome | Tel.");
-        for (Cliente i : clientes){
-            System.out.printf("%d. %s | %s | %s%n", j++,i.getId(), i.GetNome(), i.GetTelefone());
-        }
-
-        System.out.print("Digite o numero do cliente que quer remover: ");
-        int num = scanner.nextInt();
-        clientes.remove(num-1);
-    }
+		copia = pessoas.get(i);
+		if (copia instanceof Cliente) { contador++; }
+	}
+	return contador;
+}
 
 void NovoLivro(String titulo, String autor, String id, int qtd)
 {
@@ -45,48 +43,10 @@ void NovoLivro(String titulo, String autor, String id, int qtd)
 	livros.add(livro);
 }
 
-void add_livro(Scanner scanner){
-        Livro test = new Livro();
-        String titulo, autor, id;
-        System.out.println("Digite o Titulo do livro: ");
-        titulo = scanner.nextLine();
-        System.out.println("Digite o Autor do livro: ");
-        autor = scanner.nextLine();
-        System.out.println("Digite o Id do livro: ");
-        id = scanner.nextLine();
-        //test.setInfo(titulo, autor, id);
-        livros.add(test);
-    }
 
-    void remover_livro(Scanner scanner){
-        int r, conf;
-        while (true){
-            int j = 1;
-            System.out.println("-----------------------------------------------");
-            System.out.println("Id | Titulo | Autor | Status");
-            for(Livro i : livros){
-                System.out.println(j++ + " |" + i.getId() + " |" + i.getTitulo() + " |" + i.getAutor() + " |"+ i.getQtd());
-            }
-            System.out.println("-----------------------------------------------");
-            System.out.print("Digite o numero do livro que você quer remover: ");
-            r = scanner.nextInt();
-            while (r < 0 || r > j){
-                System.out.print("Digite o numero do livro que você quer remover: ");
-                r = scanner.nextInt();
-            }
-            livros.remove(r-1);
-            System.out.println("Deseja remover mais um livro? (Digite 1 para remover um novo livro ou 0 para sair)");
-            conf = scanner.nextInt();
-            while (conf != 1 && conf != 0){
-                System.out.println("Deseja remover mais um livro? (Digite 1 para remover um novo livro ou 0 para sair)");
-                conf = scanner.nextInt();
-            }
-            if (conf == 0){
-                break;
-            }
-        }
-    }
-void cadastro(Scanner scan)
+
+    
+void cadastro(Scanner scan) // Novo cadastro especificamente para clientes.
 {
 	scan.nextLine();
 	String input;
@@ -97,7 +57,7 @@ void cadastro(Scanner scan)
 	{
 		Visual.displayCadastro(atual, novo); 
 		if (atual == -1) { atual++; }
-		input = scan.nextLine(); if (input.equals("0")) { return; }
+		input = scan.nextLine(); if (input.equals("0")) { return; } 
 		switch (atual)
 		{
 
@@ -115,6 +75,16 @@ void cadastro(Scanner scan)
 	}
 
 	pessoas.add(novo);
+}
+
+void acervoInicial()
+{
+	NovoLivro("titulo primario", "autor vanguarda", "11111", 11);
+	NovoLivro("O ultimate guia de desastre de interface e unusabilidade", "Augusto", "22222", 0);
+	NovoLivro("Enciclopedia de listas encadeadas", "Gibson", "33333", 5);
+	NovoLivro("Frases em ingles pretenciosas", "Diogo Braga PHD", "44444", 3);
+	NovoLivro("Livro", "Autor", "55555", 4);
+	NovoLivro("Coisas a evitar em um projeto de livraria em POO", "Verissimo e Vitor Hugo", "66666", 1);
 }
 
 
@@ -152,18 +122,13 @@ do
 
 }
 
-public void menu()
+public void menu() // A tela de login do programa
 	{
-		Pessoa.inicializarAdmin(this);
+		acervoInicial(); // Inicia os livros com qual o programa começa
+		Pessoa.inicializarAdmin(this); // Cria os dados da conta admin, sem deixar as outras classes verem os parametros.
 		int main = 1;
 		int menu = 10;
-		String id;
-		String senha;
 		Scanner scanner = new Scanner(System.in);
-		adicionar_cliente("teste", "rua", "12345", "12345", "senha"); //
-		NovoLivro("titulo1", "autor1", "11111", 5);
-		NovoLivro("titulo2", "autor2", "22222", 0);
-		NovoLivro("titulo3", "autor3", "33333", 1);
 	do 
 	{
 		Visual.displayInicio();
@@ -175,7 +140,7 @@ public void menu()
 				  {
 					  case 1 :
 					  scanner.nextLine();
-					  login(scanner);
+					  login(scanner); 
 					  break;
 	
 					  case 2 :
@@ -183,11 +148,17 @@ public void menu()
 					  break;
 	
 					  case 3 :
-					  System.out.print(">>> sobre!\n");
+					  scanner.nextLine();
+					  Visual.sobreNos(this);
+					  Visual.EnterParaContinuar();
+					  scanner.nextLine();
 					  break;
 	
 					  case 4 :
-					  System.out.print(">>> termos de uso!\n");
+					  scanner.nextLine();
+					  Visual.termosDeUso();
+					  Visual.EnterParaContinuar();
+					  scanner.nextLine();
 					  break;
 	
 					  case 0 :

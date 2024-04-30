@@ -3,6 +3,7 @@ public class Livro{
     String autor;
     String idLivro;
     int qtd;
+    int last;
 
     void setInfo(String nomeLivro, String nomeAutor, String idLivro, int qtd){
         this.titulo = nomeLivro;

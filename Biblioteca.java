@@ -13,15 +13,16 @@ public class Biblioteca{
     ArrayList <Cliente> clientes = new ArrayList<>(); // 
     ArrayList <Funcionario> proletariado = new ArrayList<>(); // Depois tira isso : e melhor usar um array do tipo Pessoa ao inves de 927458 arrays separados
     ArrayList <Livro> livros = new ArrayList<>(); //
+	ArrayList <Pessoa> pessoas = new ArrayList<Pessoa>();
 
-static void adicionar_cliente(String nome, String endereco, String tel, String id, String senha, ArrayList<Pessoa> clientes)
+void adicionar_cliente(String nome, String endereco, String tel, String id, String senha)
 {
 	Cliente associado = new Cliente();
 	associado.SetInfo(nome, endereco, tel);
 	associado.setId(id);
 	associado.setSenha(senha);
 	associado.setCor(0);
-	clientes.add(associado);
+	pessoas.add(associado);
 }
 
 void remover_cliente(Scanner scanner)
@@ -37,7 +38,7 @@ void remover_cliente(Scanner scanner)
         clientes.remove(num-1);
     }
 
-static void temporarioNovoLivro(String titulo, String autor, String id, int qtd, ArrayList<Livro> livros)
+void temporarioNovoLivro(String titulo, String autor, String id, int qtd)
 {
 	Livro livro = new Livro();
 	livro.setInfo(titulo, autor, id, qtd);
@@ -85,7 +86,7 @@ void add_livro(Scanner scanner){
             }
         }
     }
-static void cadastro(ArrayList<Pessoa> pessoas, Scanner scan)
+void cadastro(Scanner scan)
 {
 	scan.nextLine();
 	String input;
@@ -117,7 +118,7 @@ static void cadastro(ArrayList<Pessoa> pessoas, Scanner scan)
 }
 
 
-static void login(ArrayList<Pessoa> pessoas, Scanner scanner, ArrayList<Livro> livros)
+void login(Scanner scanner)
 {		
 int num = pessoas.size();
 int check = -1;
@@ -149,22 +150,17 @@ do
 
 }
 
-public static void main (String[] args)
+public void menu()
 	{
-		ArrayList <Pessoa> pessoas = new ArrayList<Pessoa>();
-		ArrayList <Livro> livros = new ArrayList<>();
-		Pessoa pessoa;
-	
 		int main = 1;
 		int menu = 10;
 		String id;
 		String senha;
 		Scanner scanner = new Scanner(System.in);
-		adicionar_cliente("teste", "rua", "12345", "12345", "senha", pessoas); //
-		temporarioNovoLivro("titulo1", "autor1", "11111", 5, livros);
-		temporarioNovoLivro("titulo2", "autor2", "22222", 0, livros);
-		temporarioNovoLivro("titulo3", "autor3", "33333", 3, livros);
-		pessoa = pessoas.get(0); //
+		adicionar_cliente("teste", "rua", "12345", "12345", "senha"); //
+		temporarioNovoLivro("titulo1", "autor1", "11111", 5);
+		temporarioNovoLivro("titulo2", "autor2", "22222", 0);
+		temporarioNovoLivro("titulo3", "autor3", "33333", 1);
 	do 
 	{
 		Visual.displayInicio();
@@ -176,11 +172,11 @@ public static void main (String[] args)
 				  {
 					  case 1 :
 					  scanner.nextLine();
-					  login(pessoas, scanner, livros);
+					  login(scanner);
 					  break;
 	
 					  case 2 :
-					  cadastro(pessoas, scanner);
+					  cadastro(scanner);
 					  break;
 	
 					  case 3 :

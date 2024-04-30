@@ -184,16 +184,6 @@ private static ArrayList<Feedback> feedback = new ArrayList<>();
 
 	int removerConta(ArrayList<Pessoa> pessoas, Scanner scan)
 	{
-		scan.nextLine();
-		String id; int retorno; 
-		System.out.print("\nID a ser removido : "); id = scan.nextLine(); 
-		retorno = Pessoa.Busca(pessoas, id);
-		if (retorno == -1) 
-		{System.out.print("\nConta nao encontrada.\n"); return 0;}
-		if (id.equals("admin")) 
-		{System.out.print("\nConta nao encontrada.\n"); return 0;}
-		pessoas.remove(pessoas.get(retorno));
-		System.out.print("\nConta removida com sucesso.\n");
 		return 1;
 	}
 

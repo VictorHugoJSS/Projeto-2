@@ -94,19 +94,27 @@ public class Pessoa{
 		
 	}
 
-static void inicializarAdmin(Biblioteca biblioteca)
-	{
-		Admin.novoAdmin(biblioteca);
-	}
-
 int removerConta(Biblioteca biblioteca, Scanner scan)
 	{
 		return 1;
 	}
 
+static void inicializarAdmin(Biblioteca biblioteca)
+	{
+		Admin.novoAdmin(biblioteca);
+	}
+
+static void enviarFeedback(Feedback feedback)
+	{
+		Admin.receberFeedback(feedback);
+	}
+
 
 private static class Admin extends Pessoa 
 {	
+
+private static ArrayList<Feedback> feedback = new ArrayList<>();
+
 	static void novoAdmin(Biblioteca biblioteca)
 	{
 		Admin admin = new Admin();
@@ -126,6 +134,54 @@ private static class Admin extends Pessoa
 	System.out.print("[0] - Sair\n");
     }
 
+	static void receberFeedback(Feedback novoFeedback)
+	{
+		feedback.add(novoFeedback);
+	}
+
+	void verFeedback()
+	{
+		System.out.print("Entradas de feedback :\n-----------------------------------------------\n");
+		for (int i = 0; i < feedback.size(); i++)
+		{
+		System.out.print("Entrada " + (i+1) + ":\n\n ");
+		System.out.print(feedback.get(i).getConteudo());
+		System.out.print("\n\nAutor : " + feedback.get(i).getID());
+		System.out.print("\n-----------------------------------------------\n");
+		}
+	}
+
+	void listaCadastros(ArrayList<Pessoa> pessoas)
+	{
+		int qtd = pessoas.size();
+		Pessoa copia;
+		System.out.print("-----------------------------------------------\n");
+		for (int i = 0; i < qtd; i++)
+		{
+			copia = pessoas.get(i);
+			if (copia instanceof Cliente)
+			{
+				System.out.print("Cliente - " + copia.nome + "\n\n");
+				System.out.println("ID : " +copia.ID);
+				System.out.println("Senha : " +copia.Senha);
+				System.out.println("Endereco : " +copia.endereco);
+				System.out.println("Telefone : " +copia.telefone);
+				System.out.print("-----------------------------------------------\n");
+			}
+
+			if (copia instanceof Funcionario)
+			{
+				System.out.print("Funcionario - " + copia.nome + "\n\n");
+				System.out.println("Salario : " + ((Funcionario) copia).getSalario());
+				System.out.println("ID : " +copia.ID);
+				System.out.println("Senha : " +copia.Senha);
+				System.out.println("Endereco : " +copia.endereco);
+				System.out.println("Telefone : " +copia.telefone + "\n");
+				System.out.print("-----------------------------------------------\n");
+			}
+		}
+	}
+
 	int removerConta(ArrayList<Pessoa> pessoas, Scanner scan)
 	{
 		scan.nextLine();
@@ -133,6 +189,8 @@ private static class Admin extends Pessoa
 		System.out.print("\nID a ser removido : "); id = scan.nextLine(); 
 		retorno = Pessoa.Busca(pessoas, id);
 		if (retorno == -1) 
+		{System.out.print("\nConta nao encontrada.\n"); return 0;}
+		if (id.equals("admin")) 
 		{System.out.print("\nConta nao encontrada.\n"); return 0;}
 		pessoas.remove(pessoas.get(retorno));
 		System.out.print("\nConta removida com sucesso.\n");
@@ -158,6 +216,31 @@ private static class Admin extends Pessoa
 		foo.setId(id); foo.setNome(nome); foo.setEndereco(endereco); foo.setTelefone(telefone); foo.setSenha(senha); foo.setSalario(salario);
 		biblioteca.pessoas.add(foo);
 	}
+
+	void estatisticas(Biblioteca biblioteca)
+	{
+		int contadorLivros = 0; double contadorSalario = 0; int tam = biblioteca.livros.size();
+		int contadorClientes = 0; int contadorFuncionarios = 0; int contadorEmprestados = 0;
+		Pessoa copia;
+		System.out.print("Estatisticas:\n-----------------------------------------------\n");
+		System.out.println("Livros registrados: " + biblioteca.livros.size());
+		for (int i = 0; i<tam; i++)
+		{
+			contadorLivros = contadorLivros + biblioteca.livros.get(i).qtd;
+		}
+		System.out.println("Unidades de livros disponiveis no total: " + contadorLivros);
+		tam = biblioteca.pessoas.size();
+		for (int i = 0; i<tam; i++)
+		{
+			copia = biblioteca.pessoas.get(i);
+			if (copia instanceof Cliente) { contadorClientes++; contadorEmprestados = contadorEmprestados + ((Cliente) copia).getEmprestadosSize();}
+			if (copia instanceof Funcionario) {contadorFuncionarios++; contadorSalario = contadorSalario + ((Funcionario) copia).getSalario(); }
+		}
+		System.out.println("\nNumero de clientes : " + contadorClientes);
+		System.out.println("Total de livros emprestados : " + contadorEmprestados);
+		System.out.println("\nTotal de funcionarios : " + contadorFuncionarios);
+		System.out.println("Salario total dos funcionarios : R$" + contadorSalario);
+	}
 	
     void Menu(Scanner scan, Biblioteca biblioteca)
 	{
@@ -177,12 +260,25 @@ private static class Admin extends Pessoa
 					  novoFuncionario(biblioteca, scan);
 					  break;
 
+					  case 2:
+					  listaCadastros(biblioteca.pessoas);
+					  break;
+					  
+					  case 3:
+					  verFeedback();
+					  break;
+
 					  case 4 :
 					  removerConta(biblioteca.pessoas, scan);
 					  break;
 
+					  case 5 :
+					  estatisticas(biblioteca);
+					  break;
+
 					  case 0 :
 					  System.out.print("\u001B[0m"); 
+			
 					  default :
 					  System.out.print(">>> invalido!\n");
 				  }

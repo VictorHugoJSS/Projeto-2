@@ -324,6 +324,34 @@ public class Visual {
         System.out.print("              ");
     }
 
+    public static void feedback(Cliente pessoa)
+    {   
+
+        String cor;
+        switch ( ((Cliente) pessoa).getCor() )
+        {
+            case 0 : cor = ANSI_RESET;  break;
+            case 1 : cor = ANSI_RED; break;
+            case 2 : cor = ANSI_GREEN; break;
+            case 3 : cor = ANSI_YELLOW; break;
+            case 4 : cor = ANSI_BLUE; break;
+            case 5 : cor = ANSI_CYAN; break;
+            case 6 : cor = ANSI_PURPLE; break;
+            case 7 : cor = ANSI_BLACK; break;
+            case 8 : cor = ANSI_WHITE; break;
+            default : cor = ANSI_RESET; break;
+        }
+        System.out.print(cor);
+        
+
+        System.out.print("\n\n\n                                 ~FEEDBACK~                               \n");
+        System.out.print("       ____________________________________________________________       \n\n");
+        System.out.print("             O que voce nos tem a dizer? O seu feedback e valioso.       \n\n");
+        System.out.print("              ________________________________________________\n");
+        System.out.print(ANSI_GREEN + "             >>> Digite seu feedback a seguir : " + cor + "\n\n             ");
+        System.out.print(ANSI_RESET);
+    }
+
     public static void IdNaoDisponivel()
     {
         System.out.print(ANSI_GREEN + "\n        >>>Esse ID nao esta disponivel, tente outro.\n" + ANSI_RESET);
@@ -352,6 +380,11 @@ public class Visual {
     public static void EmprestadoComSucesso()
     {
         System.out.print(ANSI_GREEN + "\n        >>>LIvro adquirido com sucesso, confira seu inventario!.\n" + ANSI_RESET);
+    }
+
+    public static void feedbackEnviado()
+    {
+        System.out.print(ANSI_GREEN + "\n        >>>Seu feedback foi enviado! Aperte enter para continuar.\n" + ANSI_RESET);
     }
 
     public static void fimBorda(Pessoa pessoa)

@@ -26,6 +26,11 @@ public class Cliente extends Pessoa{
         this.cor = cor;   
     }
 
+    public int getEmprestadosSize()
+    {
+        return livrosEmprestados.size();
+    }
+
     static int Busca(ArrayList<Pessoa> pessoas, String input)
 	{
 		int num = pessoas.size();
@@ -160,6 +165,20 @@ public class Cliente extends Pessoa{
             default: setCor(0); break;
         }
     }
+
+    void feedback(Scanner scan)
+    {
+        scan.nextLine();
+        String feed;
+        Visual.feedback(this);
+        feed = scan.nextLine();
+        Feedback feedback = new Feedback();
+        feedback.setID(this.getId());
+        feedback.setConteudo(feed);
+        Pessoa.enviarFeedback(feedback);
+        Visual.feedbackEnviado();
+        feed = scan.nextLine();
+    }
     
     void Menu(Scanner scan, Biblioteca biblioteca)
     {
@@ -189,11 +208,10 @@ public class Cliente extends Pessoa{
 					  break;
 	
 					  case 5 :
-					  System.out.print(">>> feedback!\n");
+					  feedback(scan);
 					  break;
 
                       case 6 :
-					  System.out.print(">>> mudar cor!\n");
                       mudarCor(scan);
 					  break;
 	

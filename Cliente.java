@@ -179,10 +179,27 @@ public class Cliente extends Pessoa{
         Visual.feedbackEnviado();
         feed = scan.nextLine();
     }
+
+    int removerConta(Scanner scan, ArrayList<Pessoa> pessoas)
+	{
+        scan.nextLine();
+        String input;
+		int qtd = livrosEmprestados.size();
+        Visual.removerConta(qtd, this);
+        if (qtd > 0) { input = scan.nextLine(); return 0; }
+        while (true)
+        {
+            input = scan.nextLine();
+            if (input.equals("0")) { return 0; }
+            if ( verificarSenha(input) == 1) { pessoas.remove(this); return 1; }
+            else {Visual.senhaIncorreta();}
+        }
+	}
     
     void Menu(Scanner scan, Biblioteca biblioteca)
     {
         int menu = 10;
+        int retorno;
         do 
 	{
 		Visual.displayCliente(this);
@@ -203,8 +220,9 @@ public class Cliente extends Pessoa{
 					  System.out.print(">>> notifs!\n");
 					  break;
 	
-					  case 4 :
-					  System.out.print(">>> gerenciar acc!\n");
+                      case 4 :
+					  retorno = removerConta(scan, biblioteca.pessoas);
+                      if (retorno == 1) { return; }
 					  break;
 	
 					  case 5 :

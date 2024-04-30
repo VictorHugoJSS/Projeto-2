@@ -484,7 +484,7 @@ public class Visual {
 
     public static void feedbackEnviado()
     {
-        System.out.print(ANSI_GREEN + "\n        >>>Seu feedback foi enviado! Aperte enter para continuar.\n" + ANSI_RESET);
+        System.out.print(ANSI_GREEN + "\n             >>>Seu feedback foi enviado! Aperte enter para continuar.\n" + ANSI_RESET);
     }
 
     public static void JaSeguindo()
